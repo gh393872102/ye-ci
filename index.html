@@ -170,6 +170,7 @@ figure.shot figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; 
     <nav>
         <a href="#progress">当前进度</a>
         <a href="#gallery">画面锁定</a>
+        <a href="dev.html">开发规范</a>
         <div class="nav-group">先确认这是什么游戏</div>
         <a href="#c-00">本文怎么用</a>
         <a href="#c-01">产品定位</a>
@@ -207,7 +208,7 @@ figure.shot figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; 
         <p class="one-liner">在名字开始从世上脱落的夜里，你守住一册尚存的名，或率领无名之潮去夺回一张脸。</p>
         <p class="meta">游戏设计方案 v0.2 · 2026-11-15 · 纯单机 · 侧视 2D 实时指挥 + 肉鸽构筑</p>
         <p class="meta">视觉锁定：方案 A「墨煞像素」· 成人向灵异</p>
-        <p class="topbar-links">源文件仓库：<a href="https://github.com/gh393872102/ye-ci">github.com/gh393872102/ye-ci</a></p>
+        <p class="topbar-links">源文件仓库：<a href="https://github.com/gh393872102/ye-ci">github.com/gh393872102/ye-ci</a>　·　<a href="dev.html">给 GPT-Astra 的开发规范</a></p>
       </header>
 
       <section id="progress">
@@ -239,29 +240,27 @@ figure.shot figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; 
           </div>
           <div class="card">
             <div class="tag">现在</div>
-            <h3>界面稿待你从玩家角度拍板</h3>
+            <h3>正在写给 GPT-Astra 的分阶段开发规范</h3>
             <ul>
-              <li>正式画面改为全图上的镜头切片，小地图表示更大的整座祠场</li>
-              <li>人类单位按职分自动作战和退守，玩家只做购入、部署、升级/变异和点册</li>
-              <li>立绘、图鉴、购入和升级面板已补上属性、技能、数值和装备</li>
-              <li>人类单位上场更少，用更高立绘规格和更完整的技能特效压质，镜头尺度不变</li>
-              <li>守香是防守方：人默认留在基地以内，依托门窗和拒马作战，不冲到庭院空地或外门以外</li>
-              <li>图中中文只看版式，不看字；早期 04、05 将按第 13 号镜头和第 25 号站位重做</li>
+              <li>第一批已发布：总说明、锁定清单、工程规范、阶段总表、P0 工程奠基</li>
+              <li>引擎锁定为 Godot 4.4 或更新的 4.x 稳定版，游戏工程将放在独立仓库</li>
+              <li>设计锁定未改：镜头仍以第 13 号图为准，人类站位仍以第 25 号图为准</li>
+              <li>界面稿仍可从玩家角度继续拍板，但不挡住开发规范的撰写</li>
             </ul>
           </div>
           <div class="card">
             <div class="tag">下一步</div>
-            <h3>继续下一条细节</h3>
+            <h3>按阶段补完 P1–P12 并继续上传</h3>
             <ul>
-              <li>由你从玩家角度敲定这批界面的版式和可用性</li>
-              <li>标题、暂停菜单与失败结算如需再补，可放在这批之后</li>
-              <li>关卡块更细的设计与第一夜教学</li>
-              <li>数值与奖励池的第一轮校准</li>
+              <li>接下来写 P1 战场与镜头、P2 单位与职分 AI、P3 鬼潮与路径时间、P4 决策指令，直到 G0 考核可交给 Astra</li>
+              <li>随后补 G1–G3 各阶段的提示词和考核表</li>
+              <li>标题、暂停菜单与失败结算如需再补，可并行</li>
             </ul>
           </div>
         </div>
         <h3>更新记录</h3>
         <ul class="log">
+          <li><time>2026-11-15</time>开始发布给 GPT-Astra 的开发规范。第一批含总说明、锁定清单、工程规范、阶段总表和 P0 工程奠基，见 <a href="dev.html">开发规范专页</a>。</li>
           <li><time>2026-11-15</time>锁定人类依托掩体、不出基地；新增第 25 号站位标准图。庭院用于设阻和退守，不是把人拉出去列阵。</li>
           <li><time>2026-11-15</time>立绘、图鉴、购入和升级面板补上属性、技能、数值与装备；新增第 24 号人类技能特效图。人类用更高规格压质，不靠推近镜头。</li>
           <li><time>2026-11-15</time>补齐图鉴、结夜结算、夜市与战斗内警告四张界面稿。</li>
@@ -390,6 +389,7 @@ figure.shot figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; 
 <h2>0. 本文怎么用</h2>
 <p>先读第 1–3 章，确认这是一款什么样的成品，以及相对 v0.1 改了什么。再读第 4–9 章，理解三种模式如何共用同一套战场。第 10–13 章是 32 名人物、32 种鬼物、进化与香器的完整编制。第 14–17 章是图鉴立绘、平衡、关卡与肉鸽流程。第 18–21 章是叙事、美术 UI、1.0 范围与给执行模型的禁令。</p>
 <p>配图在 <a href="art/">art/</a> 目录，是已锁定的实机方向，不是可选参考。图中中文可能有生成误差，只看构图、密度、色板和 HUD 结构，不看字。</p>
+<p>若要把方案交给 GPT-Astra 做游戏，请改读 <a href="https://gh393872102.github.io/ye-ci/dev.html">开发规范</a>（源文件在 <a href="../dev/README.md">dev/</a>）。那是分阶段的工程规范、提示词和考核表；设计锁定仍以本文为准。</p>
 <table>
 <thead>
 <tr>
