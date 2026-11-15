@@ -44,6 +44,10 @@ DEV_CHAPTERS = [
     ("02-工程规范.md", "d-02", "工程规范", "怎么用"),
     ("03-阶段总表与考核总则.md", "d-03", "阶段总表与考核总则", "怎么用"),
     ("P0-工程奠基.md", "d-p0", "P0 工程奠基", "通往 G0"),
+    ("P1-战场与镜头.md", "d-p1", "P1 战场与镜头", "通往 G0"),
+    ("P2-单位与职分AI.md", "d-p2", "P2 单位与职分 AI", "通往 G0"),
+    ("P3-鬼潮与路径时间.md", "d-p3", "P3 鬼潮与路径时间", "通往 G0"),
+    ("P4-决策指令.md", "d-p4", "P4 决策指令（G0）", "通往 G0"),
 ]
 
 FILE_TO_ID = {fn: cid for fn, cid, *_ in CHAPTERS}
@@ -402,25 +406,24 @@ page = f"""<!DOCTYPE html>
             <div class="tag">现在</div>
             <h3>正在写给 GPT-Astra 的分阶段开发规范</h3>
             <ul>
-              <li>第一批已发布：总说明、锁定清单、工程规范、阶段总表、P0 工程奠基</li>
+              <li>总说明至 P4 已发布，覆盖 G0「规则能玩」的完整提示词和考核表</li>
               <li>引擎锁定为 Godot 4.4 或更新的 4.x 稳定版，游戏工程将放在独立仓库</li>
               <li>设计锁定未改：镜头仍以第 13 号图为准，人类站位仍以第 25 号图为准</li>
-              <li>界面稿仍可从玩家角度继续拍板，但不挡住开发规范的撰写</li>
             </ul>
           </div>
           <div class="card">
             <div class="tag">下一步</div>
-            <h3>按阶段补完 P1–P12 并继续上传</h3>
+            <h3>继续补完 G1–G3 各阶段</h3>
             <ul>
-              <li>接下来写 P1 战场与镜头、P2 单位与职分 AI、P3 鬼潮与路径时间、P4 决策指令，直到 G0 考核可交给 Astra</li>
-              <li>随后补 G1–G3 各阶段的提示词和考核表</li>
-              <li>标题、暂停菜单与失败结算如需再补，可并行</li>
+              <li>接下来写 P5 一夜循环、P6 三种模式、P7 进化装备，直到 G1</li>
+              <li>随后补 P8–P12 的提示词和考核表</li>
             </ul>
           </div>
         </div>
         <h3>更新记录</h3>
         <ul class="log">
-          <li><time>2026-11-15</time>开始发布给 GPT-Astra 的开发规范。第一批含总说明、锁定清单、工程规范、阶段总表和 P0 工程奠基，见 <a href="dev.html">开发规范专页</a>。</li>
+          <li><time>2026-11-15</time>开发规范已写到 P4（G0 规则能玩），含各阶段提示词和考核表，见 <a href="dev.html">开发规范专页</a>。</li>
+          <li><time>2026-11-15</time>开始发布给 GPT-Astra 的开发规范。第一批含总说明、锁定清单、工程规范、阶段总表和 P0 工程奠基。</li>
           <li><time>2026-11-15</time>锁定人类依托掩体、不出基地；新增第 25 号站位标准图。庭院用于设阻和退守，不是把人拉出去列阵。</li>
           <li><time>2026-11-15</time>立绘、图鉴、购入和升级面板补上属性、技能、数值与装备；新增第 24 号人类技能特效图。人类用更高规格压质，不靠推近镜头。</li>
           <li><time>2026-11-15</time>补齐图鉴、结夜结算、夜市与战斗内警告四张界面稿。</li>
@@ -492,7 +495,7 @@ def dev_sidebar_html():
             last_group = group
         out.append(f'<a href="#{cid}">{htmlmod.escape(title)}</a>')
     out.append('<div class="nav-group">尚未发布</div>')
-    out.append('<span style="display:block;padding:5px 10px;color:var(--muted);font-size:13px;line-height:1.45;">P1–P12 正在按同一模板撰写</span>')
+    out.append('<span style="display:block;padding:5px 10px;color:var(--muted);font-size:13px;line-height:1.45;">P5–P12 正在按同一模板撰写</span>')
     return "\n        ".join(out)
 
 
@@ -532,11 +535,11 @@ dev_page = f"""<!DOCTYPE html>
       <header class="hero">
         <h1>开发规范</h1>
         <p class="one-liner">给 GPT-Astra 的分阶段开发圣经：按什么顺序做、做到哪算过、每次该贴怎样的提示词。</p>
-        <p class="meta">与设计方案 v0.2 配套 · 2026-11-15 · 第一批：总说明到 P0</p>
+        <p class="meta">与设计方案 v0.2 配套 · 2026-11-15 · 已发布：总说明到 P4（G0）</p>
         <p class="meta">引擎锁定：Godot 4.4 或更新的 4.x 稳定版 · 主语言 GDScript · 游戏工程放独立仓库</p>
         <p class="topbar-links"><a href="index.html">返回设计方案</a>　·　源文件：<a href="https://github.com/gh393872102/ye-ci/tree/main/dev">github.com/gh393872102/ye-ci/dev</a></p>
       </header>
-      <div class="note">设计冲突以设计方案为准。工程顺序、提示词和阶段考核以本页为准。P1–P12 正在撰写，写完会更新到同一地址。Astra 不得在文档发布前自行跳阶段。</div>
+      <div class="note">设计冲突以设计方案为准。工程顺序、提示词和阶段考核以本页为准。P5–P12 正在撰写，写完会更新到同一地址。Astra 不得在文档发布前自行跳阶段。</div>
 {dev_chapters}
     </div>
   </main>
