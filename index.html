@@ -1,0 +1,1712 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>《夜祠》游戏设计方案</title>
+  <meta name="description" content="《夜祠》纯单机游戏设计方案：侧视 2D 实时指挥与肉鸽构筑。方案 A 墨煞像素，v0.2。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@600&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --bg: #0b0b0c;
+  --bg-2: #121214;
+  --bg-3: #1a1a1e;
+  --ink: #ece4d6;
+  --muted: #9a9388;
+  --line: rgba(236, 228, 214, 0.12);
+  --teal: #6aa8a4;
+  --cinnabar: #c45a46;
+  --gold: #c4a574;
+  --side: 252px;
+  --max: 760px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 17px/1.75 "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+}
+a { color: var(--teal); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: #8fc4c0; }
+.menu-btn {
+  display: none;
+  position: fixed; top: 12px; left: 12px; z-index: 40;
+  background: var(--bg-3); color: var(--ink);
+  border: 1px solid var(--line); border-radius: 8px;
+  padding: 8px 12px; font: inherit; cursor: pointer;
+}
+aside {
+  position: fixed; inset: 0 auto 0 0;
+  width: var(--side);
+  background: #0e0e10;
+  border-right: 1px solid var(--line);
+  overflow: auto;
+  padding: 28px 18px 48px;
+}
+.brand {
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", serif;
+  font-size: 28px; letter-spacing: 0.18em; margin: 0 0 4px;
+}
+.sub { margin: 0 0 22px; color: var(--muted); font-size: 12px; letter-spacing: 0.08em; }
+aside nav a {
+  display: block; color: var(--muted); text-decoration: none;
+  padding: 5px 10px; border-radius: 6px; font-size: 13px; line-height: 1.45;
+}
+aside nav a:hover, aside nav a.active { background: var(--bg-3); color: var(--ink); }
+aside nav a.active { box-shadow: inset 2px 0 0 var(--cinnabar); }
+.nav-group {
+  margin: 16px 0 6px; padding: 0 10px;
+  color: var(--gold); font-size: 11px; letter-spacing: 0.12em;
+}
+main { margin-left: var(--side); padding: 48px 40px 120px; }
+.wrap { max-width: var(--max); margin: 0 auto; }
+.hero h1 {
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", serif;
+  font-weight: 600; font-size: 42px; letter-spacing: 0.12em;
+  margin: 0 0 12px;
+}
+.hero .one-liner { font-size: 18px; color: var(--ink); margin: 0 0 14px; }
+.hero .meta { color: var(--muted); font-size: 13px; margin: 0 0 8px; }
+hr.rule { border: 0; border-top: 1px solid var(--line); margin: 36px 0; }
+section.chapter, #progress, #gallery { scroll-margin-top: 24px; margin: 56px 0 0; }
+h1, h2, h3, h4 {
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", serif;
+  font-weight: 600; line-height: 1.35;
+}
+h2 { font-size: 26px; margin: 0 0 18px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+h3 { font-size: 20px; margin: 32px 0 12px; color: #f3eadc; }
+h4 { font-size: 17px; margin: 24px 0 10px; }
+p { margin: 0 0 14px; }
+ul, ol { margin: 0 0 16px; padding-left: 1.3em; }
+li { margin: 0 0 6px; }
+table {
+  width: 100%; border-collapse: collapse; font-size: 14px;
+  margin: 0 0 20px; line-height: 1.55;
+  display: block; overflow-x: auto;
+}
+th, td {
+  border: 1px solid var(--line); padding: 8px 10px; text-align: left;
+  vertical-align: top; min-width: 4em;
+}
+th { background: var(--bg-3); color: var(--gold); font-weight: 600; white-space: nowrap; }
+tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
+code, pre {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+code { background: var(--bg-3); padding: 0.1em 0.35em; border-radius: 4px; }
+blockquote {
+  margin: 0 0 16px; padding: 10px 16px;
+  border-left: 3px solid var(--cinnabar);
+  background: var(--bg-2); color: #d9d0c3;
+}
+.note {
+  background: var(--bg-2); border: 1px solid var(--line);
+  border-left: 3px solid var(--teal);
+  padding: 12px 16px; margin: 0 0 20px; color: var(--muted); font-size: 14px;
+}
+.progress-grid { display: grid; gap: 14px; margin: 16px 0 8px; }
+.card {
+  background: var(--bg-2); border: 1px solid var(--line);
+  border-radius: 10px; padding: 16px 18px;
+}
+.card h3 { margin: 0 0 8px; font-size: 15px; color: var(--gold); border: 0; }
+.card ul { margin: 0; }
+.card .tag {
+  display: inline-block; font-size: 11px; letter-spacing: 0.08em;
+  color: var(--teal); margin-bottom: 6px;
+}
+.log { list-style: none; padding: 0; margin: 8px 0 0; color: var(--muted); font-size: 14px; }
+.log li { padding: 6px 0; border-bottom: 1px solid var(--line); }
+.log time { color: var(--gold); margin-right: 8px; font-variant-numeric: tabular-nums; }
+#gallery .shots, .shots {
+  display: grid; gap: 22px; margin: 18px 0 8px;
+}
+figure.shot { margin: 20px 0; }
+figure.shot img {
+  display: block; width: 100%; height: auto;
+  border: 1px solid var(--line); border-radius: 8px; background: #000;
+}
+figure.shot figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; }
+.topbar-links { margin-top: 18px; font-size: 13px; color: var(--muted); }
+.top { position: fixed; right: 20px; bottom: 20px; z-index: 20;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--bg-3); color: var(--ink); border: 1px solid var(--line);
+  text-decoration: none; display: grid; place-items: center; font-size: 18px;
+}
+.top:hover { color: var(--teal); }
+@media (max-width: 900px) {
+  .menu-btn { display: block; }
+  aside {
+    transform: translateX(-100%); transition: transform 0.2s ease;
+    z-index: 30; width: min(84vw, 300px);
+    box-shadow: 8px 0 32px rgba(0,0,0,0.4);
+  }
+  aside.open { transform: none; }
+  main { margin-left: 0; padding: 64px 18px 100px; }
+  .hero h1 { font-size: 30px; letter-spacing: 0.08em; }
+  .backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 25; }
+  .backdrop.show { display: block; }
+}
+@media print {
+  aside, .menu-btn, .top, .backdrop { display: none !important; }
+  main { margin: 0; padding: 0; }
+  body { background: #fff; color: #111; }
+  a { color: inherit; }
+  figure.shot img { break-inside: avoid; }
+}
+</style>
+</head>
+<body id="top">
+  <button class="menu-btn" type="button">目录</button>
+  <div class="backdrop"></div>
+  <aside>
+    <p class="brand">夜祠</p>
+    <p class="sub">NIGHT SHRINE · v0.2</p>
+    <nav>
+        <a href="#progress">当前进度</a>
+        <a href="#gallery">画面锁定</a>
+        <div class="nav-group">先确认这是什么游戏</div>
+        <a href="#c-00">本文怎么用</a>
+        <a href="#c-01">产品定位</a>
+        <a href="#c-02">相对 v0.1 的关键变更</a>
+        <a href="#c-03">设计优化与锁定</a>
+        <div class="nav-group">怎么玩</div>
+        <a href="#c-04">三种模式</a>
+        <a href="#c-05">一局怎么玩</a>
+        <a href="#c-06">核心规则</a>
+        <a href="#c-07">今夜科仪</a>
+        <a href="#c-08">阵营、标签与克制</a>
+        <a href="#c-09">编制与制作方法</a>
+        <div class="nav-group">编制与成长</div>
+        <a href="#c-10">人物编制（32）</a>
+        <a href="#c-11">鬼物编制（32）</a>
+        <a href="#c-12">进化、变异、融契与装备</a>
+        <a href="#c-13">构筑流派</a>
+        <div class="nav-group">体验、关卡与界面</div>
+        <a href="#c-14">图鉴与立绘</a>
+        <a href="#c-15">平衡框架</a>
+        <a href="#c-16">关卡块与爽点</a>
+        <a href="#c-17">操作与界面</a>
+        <div class="nav-group">叙事、美术与制作范围</div>
+        <a href="#c-18">叙事骨架</a>
+        <a href="#c-19">美术与声音</a>
+        <a href="#c-20">范围、解锁与 DLC</a>
+        <a href="#c-21">验收与禁令</a>
+        <a href="#c-22">附录：单位表说明</a>
+    </nav>
+  </aside>
+  <main>
+    <div class="wrap">
+      <header class="hero">
+        <h1>夜祠</h1>
+        <p class="one-liner">在名字开始从世上脱落的夜里，你守住一册尚存的名，或率领无名之潮去夺回一张脸。</p>
+        <p class="meta">游戏设计方案 v0.2 · 2026-11-15 · 纯单机 · 侧视 2D 实时指挥 + 肉鸽构筑</p>
+        <p class="meta">视觉锁定：方案 A「墨煞像素」· 成人向灵异</p>
+        <p class="topbar-links">源文件仓库：<a href="https://github.com/gh393872102/ye-ci">github.com/gh393872102/ye-ci</a></p>
+      </header>
+
+      <section id="progress">
+        <h2>当前进度</h2>
+        <p>以后每次改方案、补关卡或调整编制，都会更新到这一页。你可以把这个地址收藏起来，不用再到 GitHub 里一个个点开文件。</p>
+        <div class="progress-grid">
+          <div class="card">
+            <div class="tag">已完成</div>
+            <h3>设计方案 v0.2 已发布</h3>
+            <ul>
+              <li>方案 A 墨煞像素作为实机视觉锁定</li>
+              <li>三种坐席：守香、夺名、观祭，共用同一套规则</li>
+              <li>32 名人物、32 种鬼物的编制、技能与特性</li>
+              <li>变异、融契、香器、今夜科仪与平衡框架</li>
+              <li>公开仓库与本阅读网站上线</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="tag">现在</div>
+            <h3>等待审阅</h3>
+            <ul>
+              <li>请从本页连续阅读，并对照画面锁定</li>
+              <li>有异议或要加深的部分，直接说章节名即可修改</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="tag">下一步</div>
+            <h3>按反馈迭代，再往下做细案</h3>
+            <ul>
+              <li>关卡块更细的设计与第一夜教学</li>
+              <li>数值与奖励池的第一轮校准</li>
+              <li>立绘与图鉴面板的样张</li>
+            </ul>
+          </div>
+        </div>
+        <h3>更新记录</h3>
+        <ul class="log">
+          <li><time>2026-11-15</time>发布设计方案 v0.2，并上线本阅读网站。</li>
+        </ul>
+      </section>
+
+      <section id="gallery">
+        <h2>画面锁定（方案 A）</h2>
+        <div class="note">图中中文可能有生成误差，只看构图、密度、色板和 HUD 结构，不看字。这些是已锁定的实机方向，不是可选参考。</div>
+        <div class="shots">
+      <figure class="shot">
+        <img src="art/01-实机-鬼潮守门.jpg" alt="实机：鬼潮守门" loading="lazy">
+        <figcaption><strong>实机：鬼潮守门</strong> · 侧视、鬼潮密度、功能向 HUD</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="art/02-UI-暂停与指令栏.jpg" alt="UI：暂停与指令栏" loading="lazy">
+        <figcaption><strong>UI：暂停与指令栏</strong> · 暂停与底部指令 / 变异栏</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="art/03-UI-框选变异菜单.jpg" alt="UI：框选变异菜单" loading="lazy">
+        <figcaption><strong>UI：框选变异菜单</strong> · 框选后的变异菜单与香火花费</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="art/04-爽点-破门灌入.jpg" alt="爽点：破门灌入" loading="lazy">
+        <figcaption><strong>爽点：破门灌入</strong> · 力士砸门，鬼潮灌入</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="art/05-爽点-缢鬼上楼.jpg" alt="爽点：缢鬼上楼" loading="lazy">
+        <figcaption><strong>爽点：缢鬼上楼</strong> · 变异成缢鬼，扑上二楼</figcaption>
+      </figure>
+        </div>
+      </section>
+
+      <hr class="rule">
+
+<section class="chapter" id="c-00">
+<h2>0. 本文怎么用</h2>
+<p>先读第 1–3 章，确认这是一款什么样的成品，以及相对 v0.1 改了什么。再读第 4–9 章，理解三种模式如何共用同一套战场。第 10–13 章是 32 名人物、32 种鬼物、进化与香器的完整编制。第 14–17 章是图鉴立绘、平衡、关卡与肉鸽流程。第 18–21 章是叙事、美术 UI、1.0 范围与给执行模型的禁令。</p>
+<p>配图在 <a href="art/">art/</a> 目录，是已锁定的实机方向，不是可选参考。图中中文可能有生成误差，只看构图、密度、色板和 HUD 结构，不看字。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><figure class="shot"><img src="art/01-实机-鬼潮守门.jpg" alt="01-实机-鬼潮守门.jpg" loading="lazy"><figcaption>01-实机-鬼潮守门.jpg</figcaption></figure></td>
+<td>方案 A 实机：侧视、鬼潮密度、功能向 HUD</td>
+</tr>
+<tr>
+<td><figure class="shot"><img src="art/02-UI-暂停与指令栏.jpg" alt="02-UI-暂停与指令栏.jpg" loading="lazy"><figcaption>02-UI-暂停与指令栏.jpg</figcaption></figure></td>
+<td>暂停与底部指令/变异栏</td>
+</tr>
+<tr>
+<td><figure class="shot"><img src="art/03-UI-框选变异菜单.jpg" alt="03-UI-框选变异菜单.jpg" loading="lazy"><figcaption>03-UI-框选变异菜单.jpg</figcaption></figure></td>
+<td>框选后的变异菜单与香火花费</td>
+</tr>
+<tr>
+<td><figure class="shot"><img src="art/04-爽点-破门灌入.jpg" alt="04-爽点-破门灌入.jpg" loading="lazy"><figcaption>04-爽点-破门灌入.jpg</figcaption></figure></td>
+<td>爽点：破门，鬼潮灌入</td>
+</tr>
+<tr>
+<td><figure class="shot"><img src="art/05-爽点-缢鬼上楼.jpg" alt="05-爽点-缢鬼上楼.jpg" loading="lazy"><figcaption>05-爽点-缢鬼上楼.jpg</figcaption></figure></td>
+<td>爽点：变异成缢鬼，扑上二楼</td>
+</tr>
+</tbody>
+</table>
+<p>v0.1 的旧美术（2.5D、时装海报立绘、神龛界面）不再作为实机标准。精美立绘改放到点击弹出与图鉴里，不铺在战场上。</p>
+</section>
+
+<section class="chapter" id="c-01">
+<h2>1. 产品定位</h2>
+<p>《夜祠》是一款<strong>纯单机、可独立上架</strong>的 2D 侧视实时指挥游戏，带有肉鸽局内构筑。玩家默认扮演人类一方，在一夜之中守住名册与祠门；同时提供以鬼潮攻祠的「夺名」模式，以及共用同一套规则的自定义观祭。</p>
+<ul>
+<li><strong>平台：</strong> PC（Steam）为首发。键鼠是主操作，手柄需能完成全部指令（暂停、框选、菜单、加速）。</li>
+<li><strong>视角：</strong> 正交侧视 2D，类似《恐怖僵尸之夜》的舞台断面，不是俯视塔防，不是 2.5D 角色动作，不是全 3D。</li>
+<li><strong>画面：</strong> 方案 A「墨煞像素」。战场是清晰的低分辨率像素单位与功能向 HUD；点击单位才弹出精致立绘。调性为成人向灵异：深黑、骨白、溺青、干朱砂。禁止乡土破败纸扎村，禁止把战场画成时装海报或页游概念图。</li>
+<li><strong>时长：</strong> 单局一夜约 25–40 分钟。主线肉鸽可在数个夜晚内看到结局。长线深度来自构筑、图鉴、更高凶夜，而不是把单局拖长。</li>
+<li><strong>商业模式：</strong> 买断制。无内购、无抽卡、无体力、无在线强制。1.0 必须是一个有结局的完整作品；DLC 是以后的加章，不是补完游戏。</li>
+<li><strong>品质承诺：</strong> 以高精度打磨的游玩体验为先。单位可以共用骨架，但不允许用换色凑数、随机烂泥或半成品系统充数。每一位入表的人物和鬼物，都必须有独特技能、特性和可点击的立绘。</li>
+</ul>
+<h3>1.1 一句话</h3>
+<p>在名字开始从世上脱落的夜里，你守住一册尚存的名，或率领无名之潮去夺回一张脸。</p>
+<h3>1.2 玩家付费后真正买到的东西</h3>
+<ol>
+<li>一场能讲完的中式志怪故事。调性冷、阴、正，不靠跳吓，不靠仙侠。</li>
+<li>两种坐席都成立的实时指挥：守香时你是少数人的指挥；夺名时你是鬼潮本身。暂停、框选、变异或点册，都要有清楚的反馈。</li>
+<li>一套够深的一夜构筑：人物、鬼物、香器、技艺、融合与变异能组成明确的流派，并在爽点上兑现。</li>
+<li>一套从头到尾统一的灵异视觉：战场是墨煞像素的实机，图鉴和点击面板才是精绘立绘。</li>
+</ol>
+<h3>1.3 这款游戏不是什么</h3>
+<ul>
+<li>不是 3D 动作，不是类《Hades》的单体闪避砍杀。</li>
+<li>不是回合制。</li>
+<li>不是以种田、养成经营或抽卡为主。</li>
+<li>不是网游或直播赛事产品。「观祭」是单机里的自定义与观战，不为排位服务。</li>
+<li>不是乡土民俗馆，不是「纸扎村」。纸只允许作为金箔符面、灯面和特效材质。</li>
+<li>不是开放世界。关卡由手制块拼成，每一块都要有设计。</li>
+</ul>
+</section>
+
+<section class="chapter" id="c-02">
+<h2>2. 相对 v0.1 的关键变更</h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>v0.1（作废）</th>
+<th>v0.2（现行）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>类型</td>
+<td>2.5D 仪式动作 RPG</td>
+<td>侧视 2D 实时指挥 + 肉鸽构筑</td>
+</tr>
+<tr>
+<td>玩家身份</td>
+<td>只操作守香人「晚」</td>
+<td>默认守香（人类），另有夺名（鬼潮）与观祭</td>
+</tr>
+<tr>
+<td>战场</td>
+<td>四分之三俯视，场面偏插画</td>
+<td>正交侧视，数十到上百单位同屏</td>
+</tr>
+<tr>
+<td>立绘</td>
+<td>铺在战斗场景里</td>
+<td>战场保持像素；点击与图鉴弹出精绘</td>
+</tr>
+<tr>
+<td>成长</td>
+<td>据点供奉、合祀</td>
+<td>局内三选一构筑，变异、融契、香器</td>
+</tr>
+<tr>
+<td>视觉</td>
+<td>漆金华美、偏时装</td>
+<td>墨煞像素、成人向灵异</td>
+</tr>
+</tbody>
+</table>
+<p>故事骨架、主题和主角「晚」保留：有名才有脸，香火是可见的记忆，无册要抹去一切名字。习俗必须改规则，不能只当皮肤。</p>
+</section>
+
+<section class="chapter" id="c-03">
+<h2>3. 我在需求之外锁定的优化</h2>
+<p>以下是在甲方五点之上，为了可做、可深、可爽而锁定的设计。执行时视为正式规则，不是建议。</p>
+<h3>3.1 一套规则，三种坐席</h3>
+<p>守香、夺名、观祭共用同一战场、同一单位、同一数值、同一胜负判定。禁止为某一模式另写一套战斗公式。一个单位在守方难缠，在攻方就该好用，两边一起调。</p>
+<h3>3.2 四种阵营，而不是红蓝对打</h3>
+<ul>
+<li><strong>香火：</strong> 尚有名字的人。守香模式的玩家阵营。</li>
+<li><strong>野鬼：</strong> 无名或残名的潮。夺名模式的玩家阵营；守香时是压力来源，也可被超度。</li>
+<li><strong>祠神：</strong> 被供住的存在。可短暂借神，威力高，有隐藏代价。</li>
+<li><strong>无册：</strong> 真正的后期压力。抹名、夺面、篡改阵营，不跟任何一方讲人情。</li>
+</ul>
+<p>无册保证长线不会变成「人打鬼」的重复波次。</p>
+<h3>3.3 只有两种局内资源</h3>
+<p><strong>香火</strong>与<strong>名分</strong>。香火驱动技能、变异、超度、修门和借神。名分是你今夜还握着的「名字存量」，既是部分技能的燃料，也是可见的失败线之一。禁止再加金木石粮人口等经营资源。</p>
+<h3>3.4 人类的独特动词是「点册 / 超度」，不是只射怪</h3>
+<p>守香如果只做塔防射击，深度会很快见底。人类必须能对一只鬼花费时间和香火，把它点册、送行或冒险收编。杀更快，超度更值：掉香火、掉图鉴、有时得到一名灰色友军。无册会干扰这个过程，所以它不是无风险的优解。</p>
+<h3>3.5 习俗是今夜规则，不是皮肤</h3>
+<p>每一局抽一条「今夜科仪」。它改胜负或资源，例如中元夜必须超度足够的水鬼，祭灶夜香火回复加快但火会蔓延，接寿夜要护住一位老人。关卡块、事件和部分奖励池随科仪偏移。</p>
+<h3>3.6 深度来自标签组合，不来自把单位堆到无限</h3>
+<p>1.0 锁定 <strong>32 名人物 + 32 种鬼物</strong>（另有少量无立绘的杂兵模板，不算在 32 里）。每一位都有专属技能和特性。可玩深度靠约 12 个可读标签的协同、变异路径、融契和香器，而不是做第八十个换色单位。</p>
+<h3>3.7 手制关卡块 + 肉鸽拼装</h3>
+<p>纯手搓一整条战役会把重玩做死；纯随机会失去《恐怖僵尸之夜》那种「这扇门、这道梁、这条水巷」的关卡记忆。1.0 做一批手制块（门、二楼梁、水巷、名册房、井、戏台、桥、侧殿），由今夜种子拼成关，第一夜固定手搓，用于教学。</p>
+<h3>3.8 元进度只解锁，不加永久数值</h3>
+<p>过关解锁人物、起始鬼种、变异方、科仪和凶夜修饰。禁止账号级攻击力、生命成长把紧张感吃掉。失败也要进图鉴：今夜抹掉你的那张脸，仍该被你看见。</p>
+<h3>3.9 观祭克制范围</h3>
+<p>观祭是自定义编成、双方 AI 对祭、以及有限的导演介入（暂停查看、点选查看立绘、可选地插入有限次指令）。它用来看爽点、测构筑、分享种子。不做成竞技平台，不另做内容线。</p>
+</section>
+
+<section class="chapter" id="c-04">
+<h2>4. 三种模式</h2>
+<h3>4.1 守香（默认，优先引导）</h3>
+<p>玩家指挥守香人「晚」及其今夜编制，防守侧视祠场。你不是在场上连点闪避的动作角色，你是暂停下来点册、调人、修门、放符的指挥者。</p>
+<p><strong>常见目标（每关取一主一副）：</strong></p>
+<ul>
+<li>坚守至科仪完成或天亮（计时）。</li>
+<li>名册香火不被抽干。</li>
+<li>正门或指定侧门未被彻底砸开。</li>
+<li>二楼名册房或戏台未被缢鬼占领。</li>
+<li>超度指定数量的残名，或护住一位必须活到天亮的人。</li>
+</ul>
+<p><strong>失败：</strong> 名册熄灭、关键人物全灭且无法复香、目标房间失守、或科仪被无册写坏。失败要让人看得出是哪一条线先断的。</p>
+<h3>4.2 夺名（鬼潮攻祠）</h3>
+<p>玩家指挥无名之潮，结构靠近《恐怖僵尸之夜》：你是潮，不是一座塔。暂停、框选、花香火把一批鬼变成能破门、能上楼、能扰香的形态，再把它们送去夺名、夺面、或打断科仪。</p>
+<p><strong>常见目标：</strong></p>
+<ul>
+<li>在天亮前砸开正门，冲进名册房。</li>
+<li>让缢鬼或同等单位占领二楼。</li>
+<li>抽干名册，或成功夺下足够的名分。</li>
+<li>保护一名关键精英不被超度（对位守香的「护人」）。</li>
+</ul>
+<p><strong>失败：</strong> 潮被清空且无法再从阴缝增援、关键破门/上楼单位全被超度、天亮而目标未成。</p>
+<p>主题动词是「续名 / 夺名」，不是血腥感染。潮可以给人一张空脸或夺走一张脸，演出走灵异，不走丧尸啃食。</p>
+<h3>4.3 观祭（自定义 / 看比赛）</h3>
+<p>同一模拟器上的沙盒。玩家先编排双方编制、地图块组合、香火初值、AI 凶度与科仪，然后选择：</p>
+<ul>
+<li><strong>对祭：</strong> 自己坐在其中一侧，另一侧由 AI 执掌。</li>
+<li><strong>观战：</strong> 两侧皆 AI，玩家旁观。可暂停、点击查看立绘与数值，可选打开导演权限（每场有限次指令）。</li>
+<li><strong>种子复盘：</strong> 输入或分享一串今夜种子，重看同一场。</li>
+</ul>
+<p>观祭必须跑和正赛完全相同的规则，否则它不能当平衡工具，也不能当表演场。</p>
+</section>
+
+<section class="chapter" id="c-05">
+<h2>5. 一局怎么玩（肉鸽循环）</h2>
+<p>一局叫「一夜」。推荐时长 25–40 分钟。</p>
+<ol>
+<li><strong>入夜。</strong> 选模式（守香或夺名）。守香默认从「晚」起夜，可解锁其他值夜者作为起始；夺名默认从白衣潮起夜，可解锁其他种子鬼种。再抽或自选一条今夜科仪。</li>
+<li><strong>夜程图。</strong> 节点约 8–12 个，含战斗、事件、夜市、休整、头目。分支明确：稳妥、风险、专项（例如水巷特化、上楼特化）。</li>
+<li><strong>战斗节点。</strong> 侧视舞台，实时进行，可随时暂停。提供播放、暂停、二倍速。暂停时可以框选、下达走位、点册/变异、使用香器主动效果。</li>
+<li><strong>战后三选一。</strong> 从加权池里出三张：人物（或新鬼种）、变异方、香器、技艺、名帖、事件、修门/复香。只能拿一张。这是构筑的主入口。</li>
+<li><strong>夜市与事件。</strong> 可花香火买指定类型，或承担风险换更强的东西（错名、暂面、借神）。</li>
+<li><strong>头目。</strong> 今夜终局是祠神失控、大型厉鬼或无册吏。头目检查的是构筑是否成派，不是突然加血。</li>
+<li><strong>结夜。</strong> 胜则结算名分、图鉴、解锁和结局倾向；败则仍写入图鉴，并给出是哪条失败线先断。</li>
+</ol>
+<p>「过关、坚守多久、选奖励、组成 build、打出爽点」全部落在这一夜里，不另做一套无构建的线性战役来分薄内容。另设「例夜」难度，用固定第一夜做教学，再转入随机夜程。</p>
+</section>
+
+<section class="chapter" id="c-06">
+<h2>6. 核心规则</h2>
+<h3>6.1 战场结构</h3>
+<p>舞台是侧视断面，通常有：</p>
+<ul>
+<li>地面主路与可被砸的门。</li>
+<li>至少一层上层空间（梁、回廊、二楼房间），需上楼类单位才能到达。</li>
+<li>可选水巷、井、桥、侧殿，作为特殊路径。</li>
+<li>名册所在的房间，是守香的心脏、夺名的终点。</li>
+</ul>
+<p>单位有所在层、所处房间或门前位置。路径必须可读：玩家一眼能看出「这波如果不在梁上留人，缢鬼会从上面进去」。</p>
+<h3>6.2 指令</h3>
+<table>
+<thead>
+<tr>
+<th>输入</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>空格</td>
+<td>暂停 / 继续</td>
+</tr>
+<tr>
+<td>鼠标拖拽</td>
+<td>框选己方单位</td>
+</tr>
+<tr>
+<td>右键或指令按钮</td>
+<td>移动、坚守、冲门、上楼、撤退</td>
+</tr>
+<tr>
+<td>底部栏</td>
+<td>守香为点册、放符、修门、香器；夺名为变异、融契、增潮</td>
+</tr>
+<tr>
+<td>Tab 或点击单位</td>
+<td>弹出立绘与数据面板，游戏保持暂停或自动暂停</td>
+</tr>
+<tr>
+<td><code>+</code> / <code>-</code> 或按钮</td>
+<td>一倍速 / 二倍速（暂停中不走时间）</td>
+</tr>
+</tbody>
+</table>
+<p>不允许做成必须靠手速连点的动作游戏。高难度应当来自判断和资源，不是来自点不过来。</p>
+<h3>6.3 单位在场上怎么活</h3>
+<ul>
+<li><strong>守香编制：</strong> 以具名人物为主，一场建议上限 8 名上场人物，可另有少量杂兵（乡勇、弩手、祠役）填线。杂兵无精绘立绘，只有剪影卡，避免冲淡图鉴。</li>
+<li><strong>夺名编制：</strong> 潮的上限初稿为 80–120，另加有限的精英与变异体。潮要看起来像潮，精英要在潮里能被认出来。</li>
+<li><strong>阵亡与超度：</strong> 人物可在休整或用香器有限复活，但不免费。鬼被超度后离开潮；若被收编，转为灰色友军，仍可被无册夺回。</li>
+</ul>
+<h3>6.4 初稿资源曲线（可调数字，不可拆掉结构）</h3>
+<ul>
+<li>开夜香火：守香 20，夺名 16。</li>
+<li>普通战斗过程中，香火会缓慢自然回，科仪和部分香器会改速率。</li>
+<li>超度一只普通野鬼：耗时约 3–5 秒，花费 4–6 香火，回报 2–4 香火与 1 名分（净收益靠走完过程，中途被打断则亏）。</li>
+<li>变异初稿花费：青灯 8，缢鬼 12，力士 15，融契 20（与已出的 UI 图一致，作为基准）。</li>
+<li>名分掉到 0：守香视为名册将熄，进入最后窗口（短时仍可抢回）；窗口结束则失败。夺名将名分抽到 0 可视为一种胜利条件（若本关目标是抽册）。</li>
+</ul>
+</section>
+
+<section class="chapter" id="c-07">
+<h2>7. 习俗如何改规则（今夜科仪）</h2>
+<p>1.0 先做 12 条科仪，每夜抽 1 条。科仪必须改规则，而不是只换背景装饰。</p>
+<table>
+<thead>
+<tr>
+<th>科仪</th>
+<th>规则变化</th>
+<th>关卡与奖励偏移</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>例夜安香</td>
+<td>无额外修正，教学与基准平衡用</td>
+<td>标准块</td>
+</tr>
+<tr>
+<td>中元放灯</td>
+<td>水鬼增多；超度水鬼额外给名分；未超度的水鬼在水巷里更强</td>
+<td>水巷块权重提高</td>
+</tr>
+<tr>
+<td>祭灶</td>
+<td>香火回复加快，但部分技能会在地上留火，误伤双方</td>
+<td>偏符法与控制</td>
+</tr>
+<tr>
+<td>接寿</td>
+<td>必须护住一位「尚有寿数的人」到天亮；其阵亡则直接失败</td>
+<td>护卫向人物权重提高</td>
+</tr>
+<tr>
+<td>开面</td>
+<td>本夜立绘与面孔相关效果加强；无面单位更怕灯</td>
+<td>灯、面匠、夺面使权重提高</td>
+</tr>
+<tr>
+<td>祭桥</td>
+<td>桥与隙是主路，破桥会切断增援</td>
+<td>桥块必出</td>
+</tr>
+<tr>
+<td>禁声</td>
+<td>大声技能（钟、锣、哭）会被反噬，但也能震开隐形</td>
+<td>偏潜行与反潜</td>
+</tr>
+<tr>
+<td>列名夜</td>
+<td>点册与超度加快，无册吏更早出现</td>
+<td>中后期压力提前</td>
+</tr>
+<tr>
+<td>寒食</td>
+<td>不能用火类技能，香火回复变慢，物理与符封变强</td>
+<td>武卫与符师</td>
+</tr>
+<tr>
+<td>上梁</td>
+<td>二楼成为主战场，不上梁就守不住</td>
+<td>缢鬼与机关权重提高</td>
+</tr>
+<tr>
+<td>游神</td>
+<td>可更便宜地借神，但空位神混入的概率提高</td>
+<td>高风险高回报</td>
+</tr>
+<tr>
+<td>无册渗透</td>
+<td>开夜即有轻度抹名，头目必为无册谱</td>
+<td>高难选项，也作为凶夜基底</td>
+</tr>
+</tbody>
+</table>
+<p>DLC 用新时令加科仪，不推翻这张表。</p>
+</section>
+
+<section class="chapter" id="c-08">
+<h2>8. 阵营、标签与克制</h2>
+<h3>8.1 标签（约 12 个，必须写在单位卡上）</h3>
+<p><code>香火</code> <code>名面</code> <code>破门</code> <code>上楼</code> <code>水巷</code> <code>灯</code> <code>符</code> <code>金</code> <code>哭</code> <code>无册</code> <code>超度</code> <code>机关</code></p>
+<p>构筑是标签引擎。例如「灯 + 符」克潜行与无面，「破门 + 上楼」是夺名的经典双线，「超度 + 名面」是守香的长线经济，「无册」标签既强也容易被列名夜克制。</p>
+<h3>8.2 可读克制（给玩家看，不藏在公式里）</h3>
+<table>
+<thead>
+<tr>
+<th>压力</th>
+<th>常规解</th>
+<th>反制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>潮涌堵门</td>
+<td>符封、爆竹控场、范围打击</td>
+<td>潮中混入散香影，超度时爆炸</td>
+</tr>
+<tr>
+<td>力士破门</td>
+<td>铁肩扛门、土垒、封门符</td>
+<td>祠奴知道机关弱点，专打修门者</td>
+</tr>
+<tr>
+<td>缢鬼上楼</td>
+<td>梁上留人、灯揭示、机关拒马</td>
+<td>影步与童亡改走窗</td>
+</tr>
+<tr>
+<td>水鬼拖人</td>
+<td>河灯、桥上设防、超度</td>
+<td>中元夜水鬼吃超度以外的伤害更抗</td>
+</tr>
+<tr>
+<td>潜行贴脸</td>
+<td>青灯、敲更、开面科仪</td>
+<td>禁声夜灯与锣会反噬</td>
+</tr>
+<tr>
+<td>抹名 / 夺面</td>
+<td>青笺点名、面匠暂面、寄名童抵一次</td>
+<td>无册渗透夜这些手段变贵</td>
+</tr>
+<tr>
+<td>人类点册超度</td>
+<td>夺名方优先打断点册者，或派出空白册页</td>
+<td>守香可用寥的禁声保护点册</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section class="chapter" id="c-09">
+<h2>9. 编制结构与制作方法</h2>
+<p>为了 32+32 可做完，而不是纸面繁荣：</p>
+<ul>
+<li>战场像素单位按<strong>原型骨架</strong>制作。人类约 8 套（祝、卫、符、匠、童、客、盾、游），鬼物约 8 套（潮、长肢、上楼、破门、水、灯骨、大形、无册吏）。</li>
+<li>每个入表单位有：独立色板与头面、1 个专属技能特效、1–2 条特性、1 张精绘立绘、图鉴文本。</li>
+<li>禁止只换色当新单位。若两个单位在暂停点开后技能和特性都分不清，就应合并。</li>
+<li>杂兵模板不超过 4 种，无名无精绘，只用于填线。</li>
+</ul>
+</section>
+
+<section class="chapter" id="c-10">
+<h2>10. 人物编制（32）</h2>
+<p>守香模式可上场、可在肉鸽中招募的具名人物。夺名模式里他们是守祠的对手，数据完全相同。点击均可弹出立绘。</p>
+<h3>10.1 守香司（8）</h3>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>姓名</th>
+<th>定位</th>
+<th>专属技能</th>
+<th>特性</th>
+<th>标签</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H01</td>
+<td>晚</td>
+<td>值夜指挥，默认主角</td>
+<td>点册：指定一只鬼进入超度/收编读条，并短暂暴露隐形</td>
+<td>青灯眷顾：场上有青灯或灯骨时，点册加快</td>
+<td>香火, 超度, 名面</td>
+</tr>
+<tr>
+<td>H02</td>
+<td>祝禧</td>
+<td>老祠祝，回复</td>
+<td>复火：立刻给名册或一名人物恢复香火</td>
+<td>余烬：自身阵亡前把剩余香火还回名册</td>
+<td>香火</td>
+</tr>
+<tr>
+<td>H03</td>
+<td>青笺</td>
+<td>记名女史，抗抹除</td>
+<td>点名：令一名友军本场暂时「有名」，免疫一次抹名</td>
+<td>册香：每次成功超度，为名册补少量名分</td>
+<td>名面, 超度</td>
+</tr>
+<tr>
+<td>H04</td>
+<td>烬</td>
+<td>香童，早期经济</td>
+<td>分香：把自身香火分给相邻友军</td>
+<td>稚肩：体弱，但在名册房内操作加快</td>
+<td>香火</td>
+</tr>
+<tr>
+<td>H05</td>
+<td>寥</td>
+<td>哑祝，反仪式</td>
+<td>禁声阵：区域内敌我大声技能失效</td>
+<td>无口：不能被魅惑或问话类技能改变阵营</td>
+<td>符, 超度</td>
+</tr>
+<tr>
+<td>H06</td>
+<td>霜盏</td>
+<td>灯司，揭示</td>
+<td>青灯领域：驱散区域内隐形，并对无面造成恐惧</td>
+<td>灯冷：对火类科仪不免疫，对暗处加成</td>
+<td>灯, 名面</td>
+</tr>
+<tr>
+<td>H07</td>
+<td>阿卯</td>
+<td>更夫，支援</td>
+<td>敲更：唤醒眩晕友军，并短时揭示周围</td>
+<td>值夜：二倍速下仍按正常节奏警戒（减少加速漏防）</td>
+<td>灯, 机关</td>
+</tr>
+<tr>
+<td>H08</td>
+<td>沈册</td>
+<td>名册看守</td>
+<td>护册：短时间内名册受到的抽取大幅降低</td>
+<td>同烬：名册伤越重，沈册防御越高，移动越慢</td>
+<td>名面, 香火</td>
+</tr>
+</tbody>
+</table>
+<h3>10.2 武卫司（8）</h3>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>姓名</th>
+<th>定位</th>
+<th>专属技能</th>
+<th>特性</th>
+<th>标签</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H09</td>
+<td>铁肩</td>
+<td>门卫，抗破门</td>
+<td>扛门：贴门时把门耐久暂时算在自己身上</td>
+<td>门仆：离开门口后技能冷却加长</td>
+<td>破门, 金</td>
+</tr>
+<tr>
+<td>H10</td>
+<td>断刃</td>
+<td>刀客，单体高伤</td>
+<td>决斩：对残血精英必做一次重创</td>
+<td>孤刀：身旁没有友军时攻击提高，被集火更脆</td>
+<td>金</td>
+</tr>
+<tr>
+<td>H11</td>
+<td>石婆</td>
+<td>筑垒</td>
+<td>土垒：在指定地面抬起一截短墙，可被力士砸坏</td>
+<td>根深：站定越久防御越高，一移动就清零</td>
+<td>机关, 破门</td>
+</tr>
+<tr>
+<td>H12</td>
+<td>巡夜</td>
+<td>捕快，控制</td>
+<td>锁链：拉住一个单位，禁止上楼或遁水</td>
+<td>官差：对腐差、仪仗类单位伤害提高</td>
+<td>金, 符</td>
+</tr>
+<tr>
+<td>H13</td>
+<td>赤钺</td>
+<td>刽子手，斩杀</td>
+<td>行刑：瞬斩一只残血野鬼，不走超度</td>
+<td>血腥账面：若斩杀的是可超度目标，失去名分</td>
+<td>金</td>
+</tr>
+<tr>
+<td>H14</td>
+<td>铜锣</td>
+<td>盾卫，挡路</td>
+<td>鸣锣：强制附近敌方转来打自己，并造成短暂眩晕</td>
+<td>禁声夜弱化：本特性在禁声科仪中改为无眩晕的纯粹嘲讽</td>
+<td>哭, 金</td>
+</tr>
+<tr>
+<td>H15</td>
+<td>白脚</td>
+<td>机动支援</td>
+<td>飞瓦：快速换层或换路，落到指定友军旁</td>
+<td>轻身：血少，但不吃部分地面减速</td>
+<td>上楼, 机关</td>
+</tr>
+<tr>
+<td>H16</td>
+<td>丧杖</td>
+<td>克鬼武卫</td>
+<td>开路杖：对鬼物额外伤害，并短时降低其防御</td>
+<td>生人勿近：友军人物在其身旁回复降低</td>
+<td>金, 超度</td>
+</tr>
+</tbody>
+</table>
+<h3>10.3 符法司（8）</h3>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>姓名</th>
+<th>定位</th>
+<th>专属技能</th>
+<th>特性</th>
+<th>标签</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H17</td>
+<td>朱砂</td>
+<td>符师，封路</td>
+<td>封门符：暂时锁死一扇门或一道缺口的破坏</td>
+<td>朱痕：符被打破时对破门者反伤</td>
+<td>符, 破门</td>
+</tr>
+<tr>
+<td>H18</td>
+<td>冷金</td>
+<td>镜师，反术</td>
+<td>金镜：反射下一次指向性邪术，并现形施术者</td>
+<td>冷面：对魅惑抗性高，对物理更脆</td>
+<td>金, 符</td>
+</tr>
+<tr>
+<td>H19</td>
+<td>问灯</td>
+<td>降仆，高风险</td>
+<td>借鬼：短时收编一只野鬼为灰色友军</td>
+<td>反噬：若该鬼在借期被无册触及，问灯自身会被错录</td>
+<td>灯, 超度, 无册</td>
+</tr>
+<tr>
+<td>H20</td>
+<td>焚词</td>
+<td>疏文，范围</td>
+<td>烧疏：对一片区域造成香火灼伤，并打断读条</td>
+<td>耗香：每次施放额外烧掉一截全局香火</td>
+<td>香火, 符</td>
+</tr>
+<tr>
+<td>H21</td>
+<td>河灯</td>
+<td>水巷特化</td>
+<td>放河灯：水面上的敌方减速并暴露，可超度加快</td>
+<td>旱弱：不在水巷时技能威力下降</td>
+<td>水巷, 灯, 超度</td>
+</tr>
+<tr>
+<td>H22</td>
+<td>三戒</td>
+<td>还俗僧，驱散</td>
+<td>破执：驱散一个单位的增益或伪神状态</td>
+<td>戒余：对祠神与空位神伤害提高</td>
+<td>超度, 符</td>
+</tr>
+<tr>
+<td>H23</td>
+<td>月讳</td>
+<td>忌名，干扰</td>
+<td>错名：使一个敌人下一次技能施放失败或打偏</td>
+<td>讳册：自身名字被抹时，改为随机传给一名友军</td>
+<td>名面, 无册</td>
+</tr>
+<tr>
+<td>H24</td>
+<td>骨针</td>
+<td>点穴，稳定</td>
+<td>点穴：眩晕一个单位，或稳住一个即将溃散的魂</td>
+<td>针脚：对大形单位效果缩短，对童亡、影步效果加长</td>
+<td>符, 名面</td>
+</tr>
+</tbody>
+</table>
+<h3>10.4 机关与奇人（8）</h3>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>姓名</th>
+<th>定位</th>
+<th>专属技能</th>
+<th>特性</th>
+<th>标签</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H25</td>
+<td>榫卯</td>
+<td>机关师</td>
+<td>拒马：在地面或梁上放置可阻挡上楼/冲锋的障碍</td>
+<td>巧手：修门和修墙花费更低</td>
+<td>机关, 上楼</td>
+</tr>
+<tr>
+<td>H26</td>
+<td>硝青</td>
+<td>焰火匠，控场</td>
+<td>爆竹：驱散一小片潮，造成短暂溃散而非高伤</td>
+<td>祭灶亲：祭灶夜里不误伤友军</td>
+<td>符, 香火</td>
+</tr>
+<tr>
+<td>H27</td>
+<td>饲鸦</td>
+<td>视野</td>
+<td>放鸦：揭示一条路径上的隐形，并啄扰读条</td>
+<td>夜眼：在灯灭区域仍保持少量视野</td>
+<td>灯, 机关</td>
+</tr>
+<tr>
+<td>H28</td>
+<td>赊灯</td>
+<td>夜市枢纽</td>
+<td>挂账：本场可打开一次个人夜市，刷新一件香器</td>
+<td>胆小：门破后优先后撤，不能派去扛门</td>
+<td>香火, 灯</td>
+</tr>
+<tr>
+<td>H29</td>
+<td>盲弦</td>
+<td>琴师，走位控制</td>
+<td>一曲：吸引或推开一条路上的单位</td>
+<td>以耳代目：无视隐形，但视野很短</td>
+<td>哭, 符</td>
+</tr>
+<tr>
+<td>H30</td>
+<td>寄名童</td>
+<td>替名</td>
+<td>替死名：消耗自身，替一名友军或名册抵消一次抹名</td>
+<td>寄命：开场名分+1，自身被超度类效果瞄到会更危险</td>
+<td>名面, 无册</td>
+</tr>
+<tr>
+<td>H31</td>
+<td>归客</td>
+<td>外乡猎鬼人</td>
+<td>猎步：对标记过的精英造成一次穿越路径的打击</td>
+<td>客籍：不享受祠内香火回复，自身输出较高</td>
+<td>金, 灯</td>
+</tr>
+<tr>
+<td>H32</td>
+<td>面匠</td>
+<td>防夺面</td>
+<td>暂面：给一个单位戴上冷金面具，免疫一次夺面或恐惧</td>
+<td>开面亲：开面夜里暂面可同时小幅恢复名分</td>
+<td>名面, 金</td>
+</tr>
+</tbody>
+</table>
+<p><strong>杂兵模板（不算 32，无精绘）：</strong> 乡勇（地面挡路）、弩手（远程）、祠役（修门慢、可搬香）、更卒（弱揭示）。只在编制出现缺口时作为三选一里的垫牌或开夜填线。</p>
+</section>
+
+<section class="chapter" id="c-11">
+<h2>11. 鬼物编制（32）</h2>
+<p>夺名模式可生成、可变异、可在肉鸽中解锁的鬼种。守香模式里它们是来犯者，数据相同。点击均可弹出立绘。</p>
+<h3>11.1 无名潮（8）</h3>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>名称</th>
+<th>定位</th>
+<th>专属技能</th>
+<th>特性</th>
+<th>标签</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G01</td>
+<td>白衣无面</td>
+<td>基础潮</td>
+<td>拥门：多人同时撞门时，破门效率略增</td>
+<td>无面：怕灯，被超度时阻力低</td>
+<td>名面</td>
+</tr>
+<tr>
+<td>G02</td>
+<td>乞名鬼</td>
+<td>偷香</td>
+<td>乞册：靠近名册或点册者时缓慢抽取香火</td>
+<td>跪乞：血越低越容易被超度成功</td>
+<td>香火, 名面</td>
+</tr>
+<tr>
+<td>G03</td>
+<td>哭夜</td>
+<td>减防光环</td>
+<td>哀声：周围敌方防御下降</td>
+<td>禁声反噬：禁声夜里哀声会伤害自己</td>
+<td>哭</td>
+</tr>
+<tr>
+<td>G04</td>
+<td>影步</td>
+<td>潜行</td>
+<td>贴墙：在无灯区域隐形接近</td>
+<td>见灯则现：被灯照到后短暂不能再隐</td>
+<td>灯</td>
+</tr>
+<tr>
+<td>G05</td>
+<td>饿鬼</td>
+<td>续战</td>
+<td>吞残：在倒下的单位处恢复势头</td>
+<td>贪食：会为了吞残偏离主目标</td>
+<td>香火</td>
+</tr>
+<tr>
+<td>G06</td>
+<td>长手</td>
+<td>远程骚扰</td>
+<td>探爪：从较远处抓扰修门者或点册者</td>
+<td>臂脆：前爪被集火时可暂时废爪</td>
+<td>机关</td>
+</tr>
+<tr>
+<td>G07</td>
+<td>童亡</td>
+<td>钻窗快攻</td>
+<td>窄门：可走窗和梁缝，不走正门</td>
+<td>身小：易被范围技能清掉</td>
+<td>上楼, 机关</td>
+</tr>
+<tr>
+<td>G08</td>
+<td>散香影</td>
+<td>反超度地雷</td>
+<td>散香：被超度或阵亡时爆炸，打断附近读条</td>
+<td>空壳：自身几乎无攻击</td>
+<td>超度, 香火</td>
+</tr>
+</tbody>
+</table>
+<h3>11.2 习俗厉（8）</h3>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>名称</th>
+<th>定位</th>
+<th>专属技能</th>
+<th>特性</th>
+<th>标签</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G09</td>
+<td>缢鬼</td>
+<td>上楼核心</td>
+<td>上梁：沿梁、柱、绳索换层，扑入二楼房间</td>
+<td>颈线：在梁上极强，落地后短暂虚弱</td>
+<td>上楼</td>
+</tr>
+<tr>
+<td>G10</td>
+<td>水鬼</td>
+<td>水巷拖曳</td>
+<td>拖人：在水中把敌方拖离岗位，甚至拖入深水</td>
+<td>上岸无力：离开水后攻击与速度下降</td>
+<td>水巷</td>
+</tr>
+<tr>
+<td>G11</td>
+<td>青灯骨</td>
+<td>灯与揭示，也可灼人</td>
+<td>提灯：为己方揭示，同时灼烧怕灯的单位</td>
+<td>双面：守香超度成功后，有机会转化为晚的青灯助力（事件，非必然）</td>
+<td>灯, 名面</td>
+</tr>
+<tr>
+<td>G12</td>
+<td>力士尸</td>
+<td>破门核心</td>
+<td>撞门：对门和土垒造成高破坏</td>
+<td>愚力：优先打最近的门，可被嘲讽或琴声引走</td>
+<td>破门</td>
+</tr>
+<tr>
+<td>G13</td>
+<td>轿夫双鬼</td>
+<td>成对冲阵</td>
+<td>抬空轿：成对时撞击一条直线，拆散阵型</td>
+<td>失偶：一只倒下，另一只紊乱</td>
+<td>破门, 哭</td>
+</tr>
+<tr>
+<td>G14</td>
+<td>喜服鬼</td>
+<td>混乱</td>
+<td>拜堂：魅惑或强制一名人物短暂攻击友军</td>
+<td>喜丧：怕丧杖与三戒</td>
+<td>哭, 名面</td>
+</tr>
+<tr>
+<td>G15</td>
+<td>寿衣匠</td>
+<td>辅助</td>
+<td>披衣：给友军套上减伤的寿衣</td>
+<td>量体：对已有名的人物披衣失败，改为短暂减速</td>
+<td>名面, 金</td>
+</tr>
+<tr>
+<td>G16</td>
+<td>腐差</td>
+<td>秩序型厉鬼</td>
+<td>勾名：点名一个人物，使其被集火</td>
+<td>残衙：对巡夜、铜锣等「官」标签克制互相成立</td>
+<td>名面, 无册</td>
+</tr>
+</tbody>
+</table>
+<h3>11.3 大形与精英（8）</h3>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>名称</th>
+<th>定位</th>
+<th>专属技能</th>
+<th>特性</th>
+<th>标签</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G17</td>
+<td>山魅</td>
+<td>拆楼</td>
+<td>砸梁：破坏一层楼板或桥梁，改变路径</td>
+<td>巨影：体型大，不能走窗，怕集火和处理后路</td>
+<td>破门, 上楼</td>
+</tr>
+<tr>
+<td>G18</td>
+<td>无头仪仗</td>
+<td>多部位</td>
+<td>错位行进：须打击仪仗的特定部位才会真正溃散</td>
+<td>列队：周围有潮时减伤</td>
+<td>金, 哭</td>
+</tr>
+<tr>
+<td>G19</td>
+<td>镜中客</td>
+<td>模仿</td>
+<td>无面模仿：复制一个 vis 范围内人物的主动技能，但没有脸</td>
+<td>怕镜：被冷金反射或面匠之面正视时会崩</td>
+<td>名面, 金</td>
+</tr>
+<tr>
+<td>G20</td>
+<td>阴骑</td>
+<td>冲阵</td>
+<td>夜驰：沿主路高速冲锋，撞开拒马前的单位</td>
+<td>马失：在水巷或断桥上会跌倒</td>
+<td>破门</td>
+</tr>
+<tr>
+<td>G21</td>
+<td>钟口</td>
+<td>范围眩晕</td>
+<td>叩钟：大声震眩一片区域</td>
+<td>禁声致命：禁声夜里施放会重伤自己</td>
+<td>哭</td>
+</tr>
+<tr>
+<td>G22</td>
+<td>胎梦</td>
+<td>控制</td>
+<td>入梦：使一个单位陷入梦中，暂时不能接受指令</td>
+<td>易醒：受到灯或敲更会立刻中断</td>
+<td>哭, 灯</td>
+</tr>
+<tr>
+<td>G23</td>
+<td>借脸人</td>
+<td>成长精英</td>
+<td>借脸：每击倒一名有面的人物，自身变强并更像人</td>
+<td>空核：被超度成功会一次吐出所有偷来的名分</td>
+<td>名面, 无册</td>
+</tr>
+<tr>
+<td>G24</td>
+<td>祠奴</td>
+<td>反机关</td>
+<td>拆骨构：专打机关、拒马、修门者，并知道侧门</td>
+<td>旧人：可被问灯或三戒以更高成功率超度/破执</td>
+<td>机关, 超度</td>
+</tr>
+</tbody>
+</table>
+<h3>11.4 无册谱（8）</h3>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>名称</th>
+<th>定位</th>
+<th>专属技能</th>
+<th>特性</th>
+<th>标签</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G25</td>
+<td>抹名吏</td>
+<td>剥夺名字</td>
+<td>抹名：去掉一个单位的「名」，使其恐慌或技能失效</td>
+<td>吏眼：优先打有名的人物，不屑打杂兵</td>
+<td>无册, 名面</td>
+</tr>
+<tr>
+<td>G26</td>
+<td>空白册页</td>
+<td>反恢复</td>
+<td>留白：区域内名册不能被复火、超度不能产生名分</td>
+<td>薄纸：自身极脆，需潮保护</td>
+<td>无册, 超度</td>
+</tr>
+<tr>
+<td>G27</td>
+<td>倒香火</td>
+<td>污染资源</td>
+<td>倒香：把一块区域的香火回复变成毒烟，伤害双方</td>
+<td>怕真火：祭灶与焚词对它克制</td>
+<td>无册, 香火</td>
+</tr>
+<tr>
+<td>G28</td>
+<td>夺面使</td>
+<td>主题精英</td>
+<td>夺面：偷走一名人物的脸，目标在短时间内变成无面（立绘在面板上裂开）</td>
+<td>满面：手里持有面孔时变强，被面匠或开面科仪克制</td>
+<td>无册, 名面</td>
+</tr>
+<tr>
+<td>G29</td>
+<td>错录师</td>
+<td>改阵营</td>
+<td>错录：短暂改写一个单位的阵营，使其攻击原友军</td>
+<td>墨干：效果结束后该单位会眩晕，给反打窗口</td>
+<td>无册, 符</td>
+</tr>
+<tr>
+<td>G30</td>
+<td>空位神</td>
+<td>伪祠神</td>
+<td>受供：若被玩家误当作祠神来借，会大范围反噬</td>
+<td>伪神：三戒的破执可直接揭穿</td>
+<td>无册, 香火</td>
+</tr>
+<tr>
+<td>G31</td>
+<td>千名一尸</td>
+<td>堆名肉山</td>
+<td>叠名：每偷得一个名字就更厚，技能变得混乱</td>
+<td>名重：被一次成功的大规模超度或点名会崩掉多层</td>
+<td>无册, 名面</td>
+</tr>
+<tr>
+<td>G32</td>
+<td>无册</td>
+<td>终局头目模板</td>
+<td>开册：在场上投下多条抹名、夺面与留白，并试图改写今夜科仪</td>
+<td>可被列名：若名分仍高、且点册流程被保护完成，头目会进入可被对抗的「列名窗口」</td>
+<td>无册, 名面, 香火</td>
+</tr>
+</tbody>
+</table>
+<p>无册（G32）是模板：不同凶夜换阶段招式，不另算新种。DLC 可加无册的新阶段，不替换这个编号。</p>
+</section>
+
+<section class="chapter" id="c-12">
+<h2>12. 进化、变异、融契与装备</h2>
+<p>局内成长只走三层。禁止再叠天赋树、宝石盘、宠物栏和第二套卡组。</p>
+<h3>12.1 变异（夺名主动词，守香侧是来犯者的压力）</h3>
+<p>框选一批合格单位，花费香火改角色。基准四项与 UI 图一致，并在 1.0 再提供可解锁的变体方：</p>
+<table>
+<thead>
+<tr>
+<th>变异方</th>
+<th>花费（初稿）</th>
+<th>从何而来</th>
+<th>变成什么</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>提灯</td>
+<td>8</td>
+<td>白衣、乞名、散香影</td>
+<td>青灯骨或提灯变体</td>
+<td>揭示、灼无面、给潮开路</td>
+</tr>
+<tr>
+<td>上梁</td>
+<td>12</td>
+<td>白衣、童亡、影步</td>
+<td>缢鬼</td>
+<td>扑二楼，打名册房</td>
+</tr>
+<tr>
+<td>破门</td>
+<td>15</td>
+<td>白衣、饿鬼、轿夫之一</td>
+<td>力士尸</td>
+<td>砸门、砸土垒</td>
+</tr>
+<tr>
+<td>融契</td>
+<td>20</td>
+<td>任意两只合格单位</td>
+<td>见 12.2</td>
+<td>高冲击，限次</td>
+</tr>
+</tbody>
+</table>
+<p>后续可解锁的方（仍算在变异系统里，不另开系统）：入水（变水鬼）、披衣（变辅助）、错名（给一只潮短暂无册特性，风险极高）。</p>
+<p>限制：同一只单位一夜内不要连变三次。变是选择，不是无成本升级。</p>
+<h3>12.2 融契</h3>
+<p>把两只单位（或一只单位加一枚「残名」）合成更稀的形态。一夜限 1–2 次，必须有配方方向，不允许纯随机怪胎。</p>
+<p>初稿配方例：</p>
+<ul>
+<li>缢鬼 + 影步 → 梁上隐形的「悬线」</li>
+<li>力士尸 + 阴骑 → 撞门冲锋的「门骑」</li>
+<li>青灯骨 + 霜盏的残名（事件） → 短暂的双面灯</li>
+<li>借脸人 + 夺面使 → 高危的「有脸无册」，几乎必须在头目前打出，也极易毁掉名分</li>
+<li>问灯借来的鬼 + 三戒破执 → 转化为可控制的灰军，而不是临时工</li>
+</ul>
+<p>融契结果要进图鉴。玩家是为了「亲眼见到那一次合成」而重开的。</p>
+<h3>12.3 香器、技艺、名帖（双方共用的构筑层）</h3>
+<p>每名上场人物，或夺名中的每只精英，可装：<strong>1 件香器、2 条技艺、1 枚名帖</strong>。潮中的普通白衣不占装备格，避免管理爆炸。</p>
+<p><strong>香器（1.0 先做 20 件，局内三选一或夜市出现）：</strong></p>
+<table>
+<thead>
+<tr>
+<th>香器</th>
+<th>效果要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>冷金面具</td>
+<td>免疫一次夺面或恐惧</td>
+</tr>
+<tr>
+<td>未燃残香</td>
+<td>名册将熄时自动复火一次</td>
+</tr>
+<tr>
+<td>朱砂印</td>
+<td>封门符类效果延长</td>
+</tr>
+<tr>
+<td>青灯盏</td>
+<td>持有者周围持续揭示</td>
+</tr>
+<tr>
+<td>梁钉</td>
+<td>梁上单位不易被砸落</td>
+</tr>
+<tr>
+<td>桥魂石</td>
+<td>在桥上战斗加强，落水减免</td>
+</tr>
+<tr>
+<td>更鼓槌</td>
+<td>敲更类效果扩大</td>
+</tr>
+<tr>
+<td>无字帖</td>
+<td>可额外抵一次抹名，随后消失</td>
+</tr>
+<tr>
+<td>倒流香</td>
+<td>把一次受伤害转化为少量香火，有冷却</td>
+</tr>
+<tr>
+<td>开山楔</td>
+<td>破门效率提高，修门效率降低（攻守都有味道）</td>
+</tr>
+<tr>
+<td>河灯盏</td>
+<td>水面超度加快</td>
+</tr>
+<tr>
+<td>金镜残片</td>
+<td>小幅反射邪术</td>
+</tr>
+<tr>
+<td>寄名线</td>
+<td>把一次致死转给杂兵或潮中的一只白衣</td>
+</tr>
+<tr>
+<td>灶心火</td>
+<td>祭灶夜里强化，其他夜有误伤风险</td>
+</tr>
+<tr>
+<td>盲弦余音</td>
+<td>周期性地轻微吸引附近敌方</td>
+</tr>
+<tr>
+<td>空轿铃</td>
+<td>轿夫、阴骑类冲锋加强，或守方预知其路径</td>
+</tr>
+<tr>
+<td>册底针</td>
+<td>点册不易被打断</td>
+</tr>
+<tr>
+<td>丧杖穗</td>
+<td>对鬼增伤，对人减回复</td>
+</tr>
+<tr>
+<td>白骨钥</td>
+<td>打开本关一个被锁的侧路径</td>
+</tr>
+<tr>
+<td>无册残页</td>
+<td>强力但持续渗名分，高危饰品</td>
+</tr>
+</tbody>
+</table>
+<p><strong>技艺（技能搭配，1.0 先做 16 条）：</strong> 例如「点册结束时小爆香」「门耐久低于三成时攻击提高」「超度成功给全场短暂加速」「梁上暴击」「水中不减速」「击杀回一点香火」「被魅惑时改为禁身」「二倍速下技能冷却不加快」等。每条技艺只改一个清楚的行为，不写长篇复合效果。</p>
+<p><strong>名帖（属性章，1.0 先做 12 枚）：</strong> 厚血、快步、锐刃、坚门、多香、显名、冷抗、哭抗、潜反、水适、梁适、忌无册。名帖只动属性与抗性，不动规则。规则变化留给香器和科仪。</p>
+<h3>12.4 人类侧对应的「进化」</h3>
+<p>人物不走丧尸式变身，避免和鬼潮撞车。人类的深化是：</p>
+<ul>
+<li>装香器 / 技艺 / 名帖。</li>
+<li><strong>点职：</strong> 个别事件可让人物多一个标签（如铁肩兼一点机关）。</li>
+<li><strong>借神：</strong> 花费香火和名分，请祠神短暂下场。可能请到空位神。</li>
+<li><strong>收编：</strong> 超度完成时小概率或用特定香器，把鬼转为灰军。灰军保留部分原技能，可被无册夺回。</li>
+</ul>
+</section>
+
+<section class="chapter" id="c-13">
+<h2>13. 构筑流派（用来验收深度，不是限制玩家）</h2>
+<p>设计与调数值时，至少要让下面六条在一夜内能成型，并且各有明显爽点：</p>
+<ol>
+<li><strong>超度流：</strong> 晚、青笺、河灯、骨针，香器走册底针与河灯盏。爽点是把精英收编或一次点册救回名分。</li>
+<li><strong>守门流：</strong> 铁肩、石婆、朱砂、榫卯。爽点是门在最后一下被扛住，再反打力士。</li>
+<li><strong>灯面流：</strong> 霜盏、面匠、饲鸦、开面科仪。爽点是一整片无面在灯下溃散，夺面使被当场揭穿。</li>
+<li><strong>破门潮：</strong> 力士、阴骑、轿夫、开山楔。爽点是正门砸开、潮灌进去（见 <figure class="shot"><img src="art/04-爽点-破门灌入.jpg" alt="破门灌入" loading="lazy"><figcaption>破门灌入</figcaption></figure>）。</li>
+<li><strong>上梁奇袭：</strong> 缢鬼、童亡、影步、梁钉。爽点是二楼突然被扑满（见 <figure class="shot"><img src="art/05-爽点-缢鬼上楼.jpg" alt="缢鬼上楼" loading="lazy"><figcaption>缢鬼上楼</figcaption></figure>）。</li>
+<li><strong>无册赌局：</strong> 问灯、月讳、无册残页、游神科仪。爽点是错录或借神反转，失败则非常惨，必须是自觉的险棋。</li>
+</ol>
+<p>若测试里这六条有一条怎么玩都不如纯堆伤，就调奖励池和克制，而不是再加第七个系统。</p>
+</section>
+
+<section class="chapter" id="c-14">
+<h2>14. 图鉴与立绘</h2>
+<p>这是「游戏是 2D 像素，但点一下要看到精致立绘」的正式落点。</p>
+<h3>14.1 战场点击</h3>
+<ul>
+<li>单击单位：弹出面板。若在实时中点击，自动暂停。</li>
+<li>面板结构固定：左或中为精绘立绘，右为阵营、稀有度、数值、标签、专属技能、特性、今夜已装备的香器/技艺/名帖、可变异或可超度提示。</li>
+<li>立绘要经得住近看：成人向灵异，面可以不完整，光要像祠里的冷光，不做偶像团海报，不做三头身萌化。</li>
+<li>夺面、抹名、借脸会改立绘状态（裂面、无面、叠脸），这是主题演出，不是 UI 故障。</li>
+</ul>
+<h3>14.2 图鉴分册</h3>
+<p>图鉴含四册：<strong>人物、鬼物、香器、风俗</strong>（科仪与关卡块的规则说明）。</p>
+<p>解锁过程：</p>
+<ol>
+<li>未遭遇：剪影。</li>
+<li>首次入场或首次被看见：解锁名与立绘线稿。</li>
+<li>首次超度、击破、招募或融契成功：解锁完成色立绘与完整技能文本。</li>
+<li>部分条目有「列名」余文，需要特定科仪或结局倾向才会出现，作为收集深度，不挡 1.0 主线。</li>
+</ol>
+<p>失败的一夜也要登记「是谁抹掉了你」。图鉴不是胜利者的陈列柜。</p>
+<h3>14.3 制作标准</h3>
+<ul>
+<li>32+32 张精绘立绘是 1.0 必须项，不能用像素放大冒充。</li>
+<li>香器可用器物图，不必做人像。</li>
+<li>立绘只出现在面板、图鉴、结夜回顾和偶尔的技能切开（例如夺面的一瞬间），不作为战场背景海报。这是为了保住实机感。</li>
+</ul>
+</section>
+
+<section class="chapter" id="c-15">
+<h2>15. 平衡框架</h2>
+<p>三种模式同一套公式。调平衡时必须两边坐席都打。</p>
+<h3>15.1 紧张感从哪里来</h3>
+<p>不要靠隐藏数值和秒杀。把失败做成<strong>同时可见的几条线</strong>：</p>
+<ul>
+<li>守香：名册香火、门耐久、二楼是否失守、科仪倒计时、关键人物是否还在。</li>
+<li>夺名：潮的数量与增援缝、破门/上楼精英是否还活着、天亮倒计时、点册者是否正在把你的核心超度走。</li>
+</ul>
+<p>玩家随时应能回答：「我现在最可能输在哪一条。」倒计时、门的裂纹、名册火苗、二楼的惊扰，都必须在 HUD 上直写。</p>
+<h3>15.2 难度阶梯</h3>
+<table>
+<thead>
+<tr>
+<th>阶梯</th>
+<th>用途</th>
+<th>规则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>例夜</td>
+<td>教学与基准</td>
+<td>第一夜手搓，科仪为「例夜安香」，失败惩罚软</td>
+</tr>
+<tr>
+<td>凶夜</td>
+<td>默认重玩</td>
+<td>完整夜程图，随机科仪，资源更紧</td>
+</tr>
+<tr>
+<td>无册夜</td>
+<td>高难修饰（可叠加）</td>
+<td>类似登顶：开夜渗名、门更脆、无册吏提前、奖励略丰</td>
+</tr>
+</tbody>
+</table>
+<p>无册夜的修饰必须是主题化的规则，而不是「敌人全体 +20% 生命」。例如「名册渗墨」「侧门从一开始就裂着」「超度会被空白册页盯上」。</p>
+<h3>15.3 防滚雪球与防绝望</h3>
+<ul>
+<li>领先的一方不会无限增援到清屏；增援有缝、有上限。</li>
+<li>落后的一方有一次可见的喘息：例如名册将熄窗口、潮将散时的阴缝脉冲、头目的列名窗口。喘息是能读的，不是偷偷补血。</li>
+<li>三选一的「修门/复香」必须始终有可能出现，作为保命牌，但不能比成派构筑更强。</li>
+<li>观祭里的 AI 凶度只改变决策偏好和反应间隔，不改单位表上的数字。</li>
+</ul>
+<h3>15.4 调数值的秩序</h3>
+<p>出了问题，按这个顺序改：奖励权重 → 香火曲线 → 单技能参数 → 最后才改单位定位。不要因为一条流派弱了，就给它加一个新系统。</p>
+<p>初稿战斗长度：普通战斗节点 3–6 分钟，头目 6–8 分钟。短于 2 分钟说明一方碾压，长于 10 分钟说明清场和破门都不成立。</p>
+</section>
+
+<section class="chapter" id="c-16">
+<h2>16. 关卡块与爽点</h2>
+<h3>16.1 1.0 手制块清单</h3>
+<p>至少准备这些块，并能被种子拼起来：正门庭、侧门巷、二楼回廊与梁、名册房、水巷、井口、石桥、戏台、侧殿、阴缝（夺名增援口）、灶房（祭灶用）、禁声廊。</p>
+<p>每个块要写清楚：默认路径、可破坏物、上层怎么上、失败线在哪、适合哪条科仪。</p>
+<h3>16.2 必须能打出的爽点</h3>
+<p>设计关卡和技能反馈时，下列镜头应当能在一夜中至少遇到两次（不同组合）：</p>
+<ul>
+<li>力士砸开祠门，潮灌入。</li>
+<li>缢鬼沿梁扑进二楼。</li>
+<li>符阵或爆竹一次收下整波潮。</li>
+<li>铁肩在门将碎时把最后一下扛住。</li>
+<li>点册完成，精英被超度或收编，名册回亮。</li>
+<li>青灯同时照出一串影步。</li>
+<li>融契体进场，战场重心立刻改变。</li>
+<li>夺面或抹名得手（攻），或被面匠/青笺当场挡下（守）。</li>
+<li>无册头目进入列名窗口，被反过来写回册上。</li>
+</ul>
+<p>没有反馈的数值变化不算爽点。破门要有碎裂和灌入，上楼要有扑击和房间失守的提示，超度要有给脸或送行的瞬间。</p>
+</section>
+
+<section class="chapter" id="c-17">
+<h2>17. 操作、界面与辅助</h2>
+<ul>
+<li>HUD 结构锁在方案 A：顶部为倒计时/科仪、名册火苗、香火与名分、门与上层状态；底部为指令与变异/点册栏；左或右为编制与资源；画面下沿允许大块黑场负空间，像真实的 2D 指挥游戏，不要把 UI 画成插画边框。</li>
+<li>暂停是第一公民。菜单、图鉴点击、变异确认都在暂停里完成。</li>
+<li>二倍速必须可用，但阿卯等特性会提醒你：加速不是让你漏掉上楼的借口。</li>
+<li>键鼠为主。框选、点选、快捷键（暂停、超度/变异、修门、加速）要完整。手柄用锁定下一位、轮盘指令做成可用，不要求和鼠标一样快。</li>
+<li>无强制联机。可在结夜后复制今夜种子，供观祭复盘。</li>
+</ul>
+</section>
+
+<section class="chapter" id="c-18">
+<h2>18. 叙事骨架（保留，并服务双坐席）</h2>
+<p>主题不变：<strong>有名才有脸。</strong> 香火是可见的记忆。无册要让世界变成无法被叫出名字的空白。</p>
+<ul>
+<li>主角仍是守香人「晚」。她自己的名字是刻在门框上的，不够稳，所以她比谁都懂「名会掉」。</li>
+<li>签名精怪「青灯」仍在，但出场方式改了：它是灯、是可超度或可结盟的存在，不是跟在身边的动作搭档。</li>
+<li>三幕仍可用：<strong>复火 / 受册 / 列名</strong>。复火是把今夜重新点起来，受册是承认有些鬼也配被写下，列名是与无册对簿。</li>
+<li>结局仍可用：<strong>复典</strong>（把规矩和名字都守回去）、<strong>放野</strong>（让无名者走，祠不再是唯一的记法）、<strong>自册</strong>（晚把自己的名字正式写入，承担代价）。倾向由一夜夜的超度与杀戮比例、是否滥用借神、以及是否在夺名模式里「理解过潮的一侧」来偏移。</li>
+<li>夺名不是无故事的附加模式。它是同一世界的另一只眼睛：你在潮里夺名时，会看见守香人如何把你的同类送走。元叙事允许玩家两边都打过，但不强制。</li>
+</ul>
+<p>文风：文学性志怪，冷、阴、克制。禁止油腻修仙腔，禁止把习俗写成旅游介绍。</p>
+</section>
+
+<section class="chapter" id="c-19">
+<h2>19. 美术与声音锁定</h2>
+<ul>
+<li><strong>战场：</strong> 墨煞像素，正交侧视，单位小而可点，密度必须能到「数十上百」。色板深黑、骨白、溺青、干朱砂、冷金只做点缀。湿石与夜气可以有，但不要画成华丽宫宴。</li>
+<li><strong>禁止：</strong> 黄土破纸脏作坊作为世界主貌；把精绘立绘或时装人物直接摆进战场充场面；页游式大头像边框；在实机图上写英文彩蛋或无关商标。</li>
+<li><strong>立绘：</strong> 高精度静帧，成人向灵异，面不完整也可以，祠光，博物馆式的冷。每位入表单位一张主立绘，另加少量状态变体（无面、裂面、受册）。</li>
+<li><strong>特效：</strong> 2D 像素可读的块状特效。破门、上梁、点册给脸、青灯点燃、无册渗墨，都必须有独立预制，不能只是换色圆圈。金箔与符纸只出现在这些特效里。</li>
+<li><strong>声音：</strong> 少音乐、多祠里的声（更鼓、门裂、梁响、水声、名册翻页、潮的脚步而不是嘶叫堆叠）。禁声科仪要真的把大声技能的声音削掉。</li>
+</ul>
+</section>
+
+<section class="chapter" id="c-20">
+<h2>20. 1.0 范围、解锁与 DLC 接口</h2>
+<h3>20.1 1.0 必须交付</h3>
+<ul>
+<li>三种模式：守香、夺名、观祭，同一模拟器。</li>
+<li>完整 32 人物 + 32 鬼物 + 4 种杂兵模板，以及对应精绘立绘与图鉴。</li>
+<li>变异与融契（含基准四方与一组可解锁配方）。</li>
+<li>20 香器、16 技艺、12 名帖、12 科仪。</li>
+<li>手制关卡块足够拼出例夜教学、多条凶夜图和至少 3 个不同舞台感觉的头目场。</li>
+<li>三条结局倾向可到达。</li>
+<li>键鼠完整，手柄可用，1080p 60 帧为性能目标。同屏大潮时允许特效降档，不允许操作卡死。</li>
+</ul>
+<h3>20.2 元解锁（只开门，不加攻势）</h3>
+<p>解锁起始值夜者与起始鬼种、额外变异方与融契配方、科仪、无册夜修饰、部分立绘余文。不解锁永久攻击、永久生命。</p>
+<h3>20.3 DLC 接口（预留，不做进 1.0）</h3>
+<p>按「新时令 / 新谱 / 新地域块」加，不推翻核心规则。例如海祭（新的水巷规则与一批水鬼、船桥块）、山魈谱、新的无册阶段。新人物和新鬼物继续按 8 人一组的司/谱来加，并补立绘与图鉴。DLC 是加章，不是把 1.0 做成半成品。</p>
+<h3>20.4 明确不做（1.0）</h3>
+<p>多人联机、排位、抽卡、开放世界、全 3D 角色、战场内时装海报、种田经营、第二套卡牌战斗、以及「先用低质量单位占位以后再换」。</p>
+</section>
+
+<section class="chapter" id="c-21">
+<h2>21. 给执行模型的禁令与验收</h2>
+<ol>
+<li>不得把游戏改回 2.5D 动作或俯视塔防来「好看一点」。</li>
+<li>不得为守香、夺名、观祭各写一套互不相通的数值。</li>
+<li>不得用换色或仅改名字来凑 32+32。</li>
+<li>不得把精绘立绘直接铺在战场上充数，也不得用像素缩放冒充图鉴立绘。</li>
+<li>不得加第三种以上的局内资源。</li>
+<li>不得把习俗写成只换皮肤的节日地图。</li>
+<li>不得做永久数值的账号成长来代替构筑。</li>
+<li>不得在文本或画面里走向乡土纸扎村，或无根据的仙侠升级腔。</li>
+<li>数据必须表驱动。人物、鬼物、香器、技艺、名帖、科仪、融契配方、关卡块都要能在表里改，不改代码就能调测试。</li>
+<li>任何阶段如果只能拿出「能跑但不能代表成品质量」的替代，视为该阶段未完成。</li>
+</ol>
+<p><strong>阶段验收建议：</strong></p>
+<ul>
+<li><strong>G0 规则能玩：</strong> 一块正门庭 + 一块二楼，守香与夺名都能用白衣、力士、缢鬼、晚、铁肩、朱砂打完，暂停和框选可靠。</li>
+<li><strong>G1 一夜能成：</strong> 完整夜程图、三选一、至少三条流派能打出对应爽点。</li>
+<li><strong>G2 编制入场：</strong> 32+32 数据与立绘全部入表，图鉴可点，观祭可编排。</li>
+<li><strong>G3 可上架：</strong> 例夜到无册夜、三条结局、性能、键鼠手柄、文本与音效达到 1.0 标准。</li>
+</ul>
+</section>
+
+<section class="chapter" id="c-22">
+<h2>附录 A. 单位表使用说明</h2>
+<p><a href="tables/夜祠_人物表_v0.2.csv">人物表</a> 与 <a href="tables/夜祠_鬼物表_v0.2.csv">鬼物表</a> 与第 10–11 章一致，供程序导入或再转表。后续改技能描述时，以表格和本文同时更新为准，不得只改其中一份。</p>
+<p>数值列（生命、攻击、防御、速度、香耗）是初稿，进 G0 后只允许按第 15.4 节的秩序微调。</p>
+</section>
+
+    </div>
+  </main>
+  <a class="top" href="#top" title="回到顶部">↑</a>
+  <script>
+(function () {
+  const btn = document.querySelector('.menu-btn');
+  const side = document.querySelector('aside');
+  const back = document.querySelector('.backdrop');
+  const toggle = (on) => {
+    side.classList.toggle('open', on);
+    back.classList.toggle('show', on);
+  };
+  btn.addEventListener('click', () => toggle(!side.classList.contains('open')));
+  back.addEventListener('click', () => toggle(false));
+  side.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => toggle(false)));
+
+  const links = [...side.querySelectorAll('nav a')];
+  const secs = links.map((a) => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const id = '#' + e.target.id;
+      links.forEach((l) => l.classList.toggle('active', l.getAttribute('href') === id));
+    });
+  }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+  secs.forEach((s) => io.observe(s));
+})();
+</script>
+</body>
+</html>
