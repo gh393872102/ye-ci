@@ -224,14 +224,15 @@ figure.shot figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; 
               <li>变异、融契、香器、今夜科仪与平衡框架</li>
               <li>公开仓库与本阅读网站上线</li>
               <li>战场拉远、单位缩小：普通单位约占屏高 1/12–1/14，高潮夜同屏 80–150+</li>
+              <li>画面框锁定：16:9，可玩世界铺满上部 60%–72%，夜空是有星和远景的暗夜，不是纯黑上下边</li>
             </ul>
           </div>
           <div class="card">
             <div class="tag">现在</div>
             <h3>逐条讨论细节</h3>
             <ul>
-              <li>第一条已锁定：场面与单位尺度</li>
-              <li>早期爽点图 04、05 将按新尺度重做</li>
+              <li>场面、单位尺度和画面框已锁定</li>
+              <li>早期爽点图 04、05 将按第 07 号画面框重做</li>
             </ul>
           </div>
           <div class="card">
@@ -246,6 +247,7 @@ figure.shot figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; 
         </div>
         <h3>更新记录</h3>
         <ul class="log">
+          <li><time>2026-11-15</time>修正画面框。可玩世界铺满 16:9 上半屏，夜空改为有星和远景的暗夜，不再是细带加纯黑上下边。</li>
           <li><time>2026-11-15</time>锁定战场尺度。新增尺度标准图，场面拉大、单位缩小，潮水须有纵深层次。</li>
           <li><time>2026-11-15</time>发布设计方案 v0.2，并上线本阅读网站。</li>
         </ul>
@@ -253,11 +255,15 @@ figure.shot figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; 
 
       <section id="gallery">
         <h2>画面锁定（方案 A）</h2>
-        <div class="note">图中中文可能有生成误差，只看构图、密度、色板和 HUD 结构，不看字。尺度以第一张「尺度锁定」为准，01、04、05 是早期构图，不再作为单位大小和镜头距离的依据。</div>
+        <div class="note">图中中文可能有生成误差，只看构图、密度、色板和 HUD 结构，不看字。当前实机标准以第一张「画面框」为准；06 是单位缩小的过程稿，01、04、05 是早期构图。</div>
         <div class="shots">
       <figure class="shot">
-        <img src="art/06-实机-尺度锁定-远镜头鬼潮.jpg" alt="实机：尺度锁定" loading="lazy">
-        <figcaption><strong>实机：尺度锁定</strong> · 远镜头、单位缩小、冲路纵深、三层祠堂、潮水层次。这是当前尺度标准。</figcaption>
+        <img src="art/07-实机-画面框-参考构图.jpg" alt="实机：画面框" loading="lazy">
+        <figcaption><strong>实机：画面框</strong> · 当前实机标准。16:9 画面框，世界铺满上半屏，暗夜远景，不是细带加黑边。</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="art/06-实机-尺度锁定-远镜头鬼潮.jpg" alt="过程稿：尺度锁定" loading="lazy">
+        <figcaption><strong>过程稿：尺度锁定</strong> · 单位缩小与冲路纵深，画面框已由 07 取代</figcaption>
       </figure>
       <figure class="shot">
         <img src="art/01-实机-鬼潮守门.jpg" alt="早期实机：鬼潮守门" loading="lazy">
@@ -297,8 +303,12 @@ figure.shot figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; 
 </thead>
 <tbody>
 <tr>
+<td><figure class="shot"><img src="art/07-实机-画面框-参考构图.jpg" alt="07-实机-画面框-参考构图.jpg" loading="lazy"><figcaption>07-实机-画面框-参考构图.jpg</figcaption></figure></td>
+<td><strong>当前实机标准</strong>：16:9 画面框、世界铺满上半屏、暗夜远景，而不是细带加黑边</td>
+</tr>
+<tr>
 <td><figure class="shot"><img src="art/06-实机-尺度锁定-远镜头鬼潮.jpg" alt="06-实机-尺度锁定-远镜头鬼潮.jpg" loading="lazy"><figcaption>06-实机-尺度锁定-远镜头鬼潮.jpg</figcaption></figure></td>
-<td><strong>尺度标准</strong>：远镜头、单位缩小、冲路纵深、三层祠堂、潮水层次</td>
+<td>过程稿：单位缩小与冲路纵深，画面框已由 07 取代</td>
 </tr>
 <tr>
 <td><figure class="shot"><img src="art/01-实机-鬼潮守门.jpg" alt="01-实机-鬼潮守门.jpg" loading="lazy"><figcaption>01-实机-鬼潮守门.jpg</figcaption></figure></td>
@@ -430,7 +440,7 @@ figure.shot figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; 
 <h3>3.9 观祭克制范围</h3>
 <p>观祭是自定义编成、双方 AI 对祭、以及有限的导演介入（暂停查看、点选查看立绘、可选地插入有限次指令）。它用来看爽点、测构筑、分享种子。不做成竞技平台，不另做内容线。</p>
 <h3>3.10 战场必须远、单位必须小</h3>
-<p>默认镜头要同时看见来路、冲路、正门和至少三层可交战空间。普通单位只占全屏高度的约 1/12 到 1/14，高潮夜同屏要能到 80–150 个单位。尺度标准见第 19 章和第 06 号实机图。禁止靠推近镜头、放大单位来「看清角色」。</p>
+<p>默认镜头要同时看见来路、冲路、正门和至少三层可交战空间。普通单位只占全屏高度的约 1/12 到 1/14，高潮夜同屏要能到 80–150 个单位。尺度与画面框见第 19 章和第 07 号实机图。禁止靠推近镜头、放大单位来「看清角色」，也禁止把可玩区压成细带、把天空画成纯黑上下边。</p>
 </section>
 
 <section class="chapter" id="c-04">
@@ -1640,14 +1650,15 @@ figure.shot figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; 
 <ul>
 <li><strong>战场：</strong> 墨煞像素，正交侧视，单位小而可点，密度必须能到「数十上百」。色板深黑、骨白、溺青、干朱砂、冷金只做点缀。湿石与夜气可以有，但不要画成华丽宫宴。</li>
 </ul>
-<h3>19.1 战场尺度（2026-11-15 锁定）</h3>
-<p>首批实机参考把镜头放得太近，单位偏大，场面停在门前特写，潮水的纵深和数量压力出不来。以下为验收标准，以后所有实机图、关卡块和动画都按此执行。</p>
+<h3>19.1 战场尺度与画面框（2026-11-15 锁定）</h3>
+<p>首批实机参考把镜头放得太近，单位偏大，场面停在门前特写，潮水的纵深和数量压力出不来。随后把单位缩小后，又出现另一种问题：可玩区被压成画面中间一条细带，天空变成纯黑上下边，看起来不像正式的 16:9 作战画面。以下为验收标准，以后所有实机图、关卡块和动画都按此执行。</p>
 <ul>
 <li><strong>镜头：</strong> 默认作战镜头必须同时看见四处：远处来路、中段冲路或庭院、正门、至少三层可交战空间（一层、二楼、可上梁或屋顶）。禁止以大门特写加十来个大单位作为默认实机标准。</li>
 <li><strong>单位体量：</strong> 普通人物和普通鬼的站立身高约占全屏高度的 1/12 到 1/14。大形或融契体可以到普通单位的 1.6 到 2.2 倍，但不得占满半屏。剪影必须可读（脸、灯、武器分得清），但不能靠放大单位来「好看」。</li>
 <li><strong>同屏数量：</strong> 常规防守可见 40 到 80 个单位；破门、灌入、高潮夜可见 80 到 150 以上。潮水要有前后层次：后排还在画外往里涌，中段在路上，前排已经撞门或爬楼。</li>
 <li><strong>空间要长：</strong> 冲路是一条河，不是门口一摊。玩家要先看见潮，再挨到门。</li>
-<li><strong>标准图：</strong> <figure class="shot"><img src="art/06-实机-尺度锁定-远镜头鬼潮.jpg" alt="06-实机-尺度锁定-远镜头鬼潮.jpg" loading="lazy"><figcaption>06-实机-尺度锁定-远镜头鬼潮.jpg</figcaption></figure> 为尺度标准。<figure class="shot"><img src="art/01-实机-鬼潮守门.jpg" alt="01-实机-鬼潮守门.jpg" loading="lazy"><figcaption>01-实机-鬼潮守门.jpg</figcaption></figure> 只保留色板和 HUD 结构，不再作为尺度依据。早期爽点图 04、05 将按同一尺度重做。</li>
+<li><strong>画面框：</strong> 基准分辨率 16:9、1920×1080。构图参考同类型侧视指挥游戏的室外作战镜头：可玩世界从顶栏铺到地平线，地平线约在画面高度的 60%–72%；下部 28%–40% 是黑场加指令栏。夜空必须是世界的一部分（暗夜、星、远景剪影），禁止把天空画成纯黑的上下黑边，也禁止把舞台压成一条飘在黑场里的细带。右侧祠堂以剖视断面尽量占满可玩区高度，屋脊靠近顶栏；每层要有足够层高，人在房间里显得小。</li>
+<li><strong>标准图：</strong> <figure class="shot"><img src="art/07-实机-画面框-参考构图.jpg" alt="07-实机-画面框-参考构图.jpg" loading="lazy"><figcaption>07-实机-画面框-参考构图.jpg</figcaption></figure> 为当前实机标准（画面框 + 单位尺度）。<figure class="shot"><img src="art/06-实机-尺度锁定-远镜头鬼潮.jpg" alt="06-实机-尺度锁定-远镜头鬼潮.jpg" loading="lazy"><figcaption>06-实机-尺度锁定-远镜头鬼潮.jpg</figcaption></figure> 保留为单位缩小的过程稿。<figure class="shot"><img src="art/01-实机-鬼潮守门.jpg" alt="01-实机-鬼潮守门.jpg" loading="lazy"><figcaption>01-实机-鬼潮守门.jpg</figcaption></figure> 只保留色板和 HUD 结构。早期爽点图 04、05 将按 07 的画面框重做。</li>
 <li><strong>禁止：</strong> 黄土破纸脏作坊作为世界主貌；把精绘立绘或时装人物直接摆进战场充场面；页游式大头像边框；在实机图上写英文彩蛋或无关商标。</li>
 <li><strong>立绘：</strong> 高精度静帧，成人向灵异，面不完整也可以，祠光，博物馆式的冷。每位入表单位一张主立绘，另加少量状态变体（无面、裂面、受册）。</li>
 <li><strong>特效：</strong> 2D 像素可读的块状特效。破门、上梁、点册给脸、青灯点燃、无册渗墨，都必须有独立预制，不能只是换色圆圈。金箔与符纸只出现在这些特效里。</li>
@@ -1688,7 +1699,7 @@ figure.shot figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; 
 <li>不得在文本或画面里走向乡土纸扎村，或无根据的仙侠升级腔。</li>
 <li>数据必须表驱动。人物、鬼物、香器、技艺、名帖、科仪、融契配方、关卡块都要能在表里改，不改代码就能调测试。</li>
 <li>任何阶段如果只能拿出「能跑但不能代表成品质量」的替代，视为该阶段未完成。</li>
-<li>不得把默认镜头推近、把单位放大来「看清角色」。实机标准图若普通单位头身接近门楼，或同屏普通鬼明显少于 40，或只能看见一层半建筑，视为尺度不合格。</li>
+<li>不得把默认镜头推近、把单位放大来「看清角色」。实机标准图若普通单位头身接近门楼，或同屏普通鬼明显少于 40，或只能看见一层半建筑，视为尺度不合格。可玩区不得压成细带，夜空不得画成纯黑上下黑边；画面框以第 19 章和第 07 号图为准。</li>
 </ol>
 <p><strong>阶段验收建议：</strong></p>
 <ul>
