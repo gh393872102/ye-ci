@@ -192,6 +192,7 @@ figure.shot figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; 
         <a href="#d-p10">P10 关卡块与科仪（G2）</a>
         <div class="nav-group">通往 G3</div>
         <a href="#d-p11">P11 叙事、音频与打磨</a>
+        <a href="#d-p11-review">P11 评审回执与美术硬标准</a>
         <a href="#d-p12">P12 发布与上架验收（G3）</a>
     </nav>
   </aside>
@@ -200,11 +201,11 @@ figure.shot figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; 
       <header class="hero">
         <h1>开发规范</h1>
         <p class="one-liner">给 GPT-Astra 的分阶段开发圣经：按什么顺序做、做到哪算过、每次该贴怎样的提示词。</p>
-        <p class="meta">与设计方案 v0.2 配套 · 2026-11-15 · 已发布：总说明到 P12（G0–G3 全文）</p>
+        <p class="meta">与设计方案 v0.2 配套 · 2026-11-18 · 已发布：总说明到 P12，另含 P11 评审回执与美术硬标准</p>
         <p class="meta">引擎锁定：Godot 4.4 或更新的 4.x 稳定版 · 主语言 GDScript · 游戏工程放独立仓库</p>
         <p class="topbar-links"><a href="index.html">返回设计方案</a>　·　源文件：<a href="https://github.com/gh393872102/ye-ci/tree/main/dev">github.com/gh393872102/ye-ci/dev</a></p>
       </header>
-      <div class="note">设计冲突以设计方案为准。工程顺序、提示词和阶段考核以本页为准。P0–P12 已全部发布。Astra 必须从 P0 起一阶段一阶段做，不得跳步，也不得在关键项未通过时宣称达到门槛。</div>
+      <div class="note">设计冲突以设计方案为准。工程顺序、提示词和阶段考核以本页为准。从 P11 进入 P12 前，必须先完成「P11 评审回执与美术硬标准」中的必改项和美术硬标准。Astra 从 P0 起一阶段一阶段做，不得跳步，也不得在关键项未通过时宣称达到门槛。</div>
 <section class="chapter" id="d-index">
 <h1>《夜祠》开发规范（交给 GPT-Astra）</h1>
 <p>本目录是给执行模型 <strong>GPT-Astra</strong> 的分阶段开发圣经，和 <a href="#d-index">GDD v0.2</a> 配套使用。设计方案规定「做成什么样的游戏」，本目录规定「按什么顺序做、做到哪算过、每次该贴怎样的提示词」。</p>
@@ -229,9 +230,10 @@ figure.shot figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; 
 <li><a href="#d-p9">P9 界面全套</a></li>
 <li><a href="#d-p10">P10 关卡块与科仪</a>（本阶段通过即为 G2）</li>
 <li><a href="#d-p11">P11 叙事、音频与打磨</a></li>
+<li><a href="#d-p11-review">P11 设计评审回执与美术硬标准</a>（2026-11-18：有条件进入 P12，先改完再上架验收）</li>
 <li><a href="#d-p12">P12 发布与上架验收</a>（本阶段通过即为 G3）</li>
 </ol>
-<p>开发规范正文到此写完。Astra 必须从 P0 起，一阶段一阶段做，不得跳步，也不得在关键项未通过时宣称达到了对应门槛。</p>
+<p>开发规范正文到此写完。Astra 必须从 P0 起，一阶段一阶段做，不得跳步，也不得在关键项未通过时宣称达到了对应门槛。若正在从 P11 进入 P12，必须先完成《P11 设计评审回执与美术硬标准》中的必改项和美术硬标准，再开始 P12 的导出与上架验收。</p>
 <h2>四个验收门槛（与 GDD 第 21 章对齐）</h2>
 <table>
 <thead>
@@ -4698,6 +4700,180 @@ INCENSE_START_DUO = 16
 <hr />
 <p>上一篇：<a href="#d-p10">P10. 关卡块与科仪</a><br />
 下一篇：<a href="#d-p12">P12. 发布与上架验收</a></p>
+</section>
+
+<section class="chapter" id="d-p11-review">
+<h1>P11 设计评审回执与美术硬标准（交给 Astra）</h1>
+<ul>
+<li>日期：2026-11-18（Asia/Shanghai）</li>
+<li>评审对象：<code>ye-ci-game</code> 标签 <code>p11-review-2026-11-18</code>（提交 <code>1865f2aca35e51ca51096441eeb2736dbdbc4d00</code>）</li>
+<li>评审身份：原设计方</li>
+<li>总判断：<strong>有条件进入 P12</strong>。规则和两席结构已经立住，不退回重做整个 P11；但下列修订必须在开始 P12 上架、导出和商店验收之前完成。</li>
+<li>本轮评审未实机运行 Godot。结论来自阶段报告、原生截图、音频文件和源码。操作手感仍待实玩补看。</li>
+</ul>
+<p>在线阅读：https://gh393872102.github.io/ye-ci/dev.html#d-p11-review<br />
+设计方案与标准图：https://gh393872102.github.io/ye-ci/<br />
+源文件：https://github.com/gh393872102/ye-ci/blob/main/dev/P11-评审回执与美术硬标准.md</p>
+<hr />
+<h2>0. 转发给 Astra 时复制这一段</h2>
+<p>先把开发规范专页发给 Astra，再贴下面整段：</p>
+<pre><code>请先阅读 https://gh393872102.github.io/ye-ci/dev.html#d-p11-review （P11 设计评审回执与美术硬标准），并对照 https://gh393872102.github.io/ye-ci/ 中的第 13、24、25 号标准图，以及第 14–23 号界面稿和第 19 章美术锁定。
+
+P11 的结论是「有条件进入 P12」。在开始 P12 的导出、平台和商店验收之前，必须先按该回执完成全部必改项：
+
+1. 默认远镜头下，点册、青灯、符印、香烟、弩矢要能各自认清；战场上不要常驻房间名标签。
+2. 放野的到达原因在结算里要能看懂；图鉴「列名余文」页签要直接显示正文。
+3. 「是谁抹掉了你」只写凶手和失败原因，禁止把测试种子名写进玩家可见文案，并同步修改相应测试。
+4. 美术硬标准：当前实机的色块单位、空房间和示意图式祠场不合格，太简陋。战场和界面必须以原设计方已经给出的渲染标准图为底线，并在此基础上再美化。禁止用推近默认镜头或放大单位来「好看」。禁止改已锁定的规则、尺度、站位和操作方式。
+
+做完后按回执的验收项逐条自检，用规定的阶段报告格式写到 docs/phase-reports/，附上与第 13、24、25 号图同构图的对比截图。在这些修订通过之前，不要宣称进入 P12 上架验收。
+</code></pre>
+<p>也可以把本文全文交给 Astra。全文已经包含禁令、标准图路径和验收步骤。</p>
+<hr />
+<h2>1. 必须先改的三项（会妨碍玩家判断）</h2>
+<h3>1.1 远镜头技能要能认，地名不要抢视线</h3>
+<ul>
+<li><strong>席位 / 场景：</strong> 守香。证据：<figure class="shot"><img src="https://github.com/gh393872102/ye-ci-game/blob/p11-review-2026-11-18/docs/phase-reports/p11-shots/vfx/01-k4-five-skills.png" alt="五种特效同框" loading="lazy"><figcaption>五种特效同框</figcaption></figure>、<figure class="shot"><img src="https://github.com/gh393872102/ye-ci-game/blob/p11-review-2026-11-18/docs/phase-reports/p11-shots/vfx/08-k4-mirror-and-dispel.png" alt="金镜与破执" loading="lazy"><figcaption>金镜与破执</figcaption></figure>。</li>
+<li><strong>实际：</strong> 点册圈和香烟勉强可见，青灯、符印、弩矢收成小光斑，要靠漂浮字才能猜。战场上常驻「二楼回廊与梁」「主殿门厅」「楼梯间」「名册房」等房间名，祠场像关卡标注图，而不是夜里的祠。</li>
+<li><strong>期望：</strong> 对照第 24 号图。五种特效各有独立形状语言，默认远镜头下一眼能分清，不靠场上标签。房间名默认关闭；若需要引导，只在第一次接近、悬停或调试开关（如 F6）时出现。</li>
+<li><strong>最小可验收修改：</strong>
+  1. 五种技能使用独立预制，而不是换色圆圈：点册为完整的圈与读条连接；青灯为灯骨或光域；符印为符纸/金镜语言；香烟有上升轨迹；弩矢有飞行拖影。
+  2. 正式战斗预设关闭场景地名。允许调试时打开。
+  3. 提交一张与第 13 号图同尺度、无房间名的五种特效同框图，并书面指出每一种在图中的位置。</li>
+</ul>
+<h3>1.2 放野的原因要能看懂，余文要露出来</h3>
+<ul>
+<li><strong>席位 / 场景：</strong> 守香结夜与图鉴。证据：<figure class="shot"><img src="https://github.com/gh393872102/ye-ci-game/blob/p11-review-2026-11-18/docs/phase-reports/p11-story-shots/p11-ending-e02.png" alt="放野结算" loading="lazy"><figcaption>放野结算</figcaption></figure>、<figure class="shot"><img src="https://github.com/gh393872102/ye-ci-game/blob/p11-review-2026-11-18/docs/phase-reports/p11-story-shots/p11-epilogue-e02.png" alt="青灯骨图鉴页" loading="lazy"><figcaption>青灯骨图鉴页</figcaption></figure>、<figure class="shot"><img src="https://github.com/gh393872102/ye-ci-game/blob/p11-review-2026-11-18/docs/phase-reports/p11-story-shots/p11-self-listing-choice.png" alt="自册选择前" loading="lazy"><figcaption>自册选择前</figcaption></figure>、<figure class="shot"><img src="https://github.com/gh393872102/ye-ci-game/blob/p11-review-2026-11-18/docs/phase-reports/p11-story-shots/p11-self-listing-battle.png" alt="自册战后卡" loading="lazy"><figcaption>自册战后卡</figcaption></figure>。</li>
+<li><strong>实际：</strong> 自册在选择前写明「扣 4 名分，生命从 70 降至 45」，战后卡是 45/45，这一条合格。放野正文调性对，但结算上看不出「打过夺名、留下余潮、名分落在中档」是到达原因。图鉴点开「列名余文」时，可见区域仍是属性和立绘，余文被追加在详情底部，证据图里并没有露出正文。</li>
+<li><strong>期望：</strong> 打过两边的人，应在选择或结算时就明白自己为何走到这一条，而不必去翻表。余文页签打开后，第一眼就是那段列名余文。</li>
+<li><strong>最小可验收修改：</strong>
+  1. 放野（以及复典）结算增加一句人话，说明倾向，例如走过潮的一侧、留下未尽的名字、把规矩和名字守了回去。不要堆内部变量名，也不要改 <code>endings.json</code> 里的规则骨架；数字仍是初稿，只允许调数字。
+  2. 「列名余文」页签直接显示余文正文。提交一张能读到 G11（或 G01 / H01）余文原句的图鉴截图。</li>
+</ul>
+<h3>1.3 失败记录不要写测试种子</h3>
+<ul>
+<li><strong>席位 / 场景：</strong> 图鉴「是谁抹掉了你」。证据：<figure class="shot"><img src="https://github.com/gh393872102/ye-ci-game/blob/p11-review-2026-11-18/docs/phase-reports/p11-story-shots/p11-failure-record.png" alt="失败记录" loading="lazy"><figcaption>失败记录</figcaption></figure>。源码：<code>src/ui/CodexPanel.gd</code> 的 <code>_refresh_failures()</code> 按种子、凶手、原因排版；<code>tests/P11StorySuite.gd</code> 等测试还要求文案必须包含 <code>P11-empty-seat-%d</code> 这类种子。</li>
+<li><strong>实际：</strong> 玩家看到的是「P11-empty-seat-7 · 抹名吏 · 名分归零，将熄窗口已尽。」</li>
+<li><strong>期望：</strong> 玩家只看到是谁、因何失败。种子只出现在结夜结算的「复制种子」，或一处明确标注为种子的位置，不要混进「是谁抹掉了你」。</li>
+<li><strong>最小可验收修改：</strong> 玩家可见行只保留凶手（或天亮等非单位原因）和失败原因。同步修改所有仍断言「失败文案必须包含种子名」的测试。提交一张新的失败记录截图。</li>
+</ul>
+<hr />
+<h2>2. 美术硬标准（甲方补充，不可降级）</h2>
+<p>当前 P11 实机截图里的战场，是色块单位、空荡剖面和常驻标注。这个观感被判定为<strong>太简陋、太丑，不能代表成品，也不能作为「占位美术可以先这样」继续往 P12 走。</strong></p>
+<p>美术底线不是「能认出房间就算过」，而是：</p>
+<blockquote>
+<p>做成原设计方已经给出的渲染标准图的水准，并在那些图的基础上再美化。</p>
+</blockquote>
+<p>「再美化」指材质、光、像素工艺、特效可读性和界面完成度高于那些标准图，而不是改镜头、改比例、改玩法，也不是另起一套风格。</p>
+<h3>2.1 必须以哪些图为底，哪些图不能当目标</h3>
+<p>正式战斗与空间，必须以这些图为构图、尺度、站位和气氛的底线，再往上打磨：</p>
+<ul>
+<li><figure class="shot"><img src="https://gh393872102.github.io/ye-ci/art/13-实机-镜头切片与全图.jpg" alt="第 13 号：镜头切片与全图" loading="lazy"><figcaption>第 13 号：镜头切片与全图</figcaption></figure> — 默认镜头、小地图、战场尺度</li>
+<li><figure class="shot"><img src="https://gh393872102.github.io/ye-ci/art/25-实机-掩体与基地内防守.jpg" alt="第 25 号：掩体与基地内防守" loading="lazy"><figcaption>第 25 号：掩体与基地内防守</figcaption></figure> — 人类站位；人在门窗、拒马、桌案后，不站在庭院空地与潮混战</li>
+<li><figure class="shot"><img src="https://gh393872102.github.io/ye-ci/art/24-实机-人类技能特效.jpg" alt="第 24 号：人类技能特效" loading="lazy"><figcaption>第 24 号：人类技能特效</figcaption></figure> — 远镜头下的点册、青灯、符印、香烟、弩矢</li>
+</ul>
+<p>界面必须以第 14–23 号稿为布局底线，再提高完成度（字号、对齐、纸墨质感、视线落点）。尤其是：</p>
+<ul>
+<li>14 购入与部署、15 升级、16 点册、17 立绘面板、18 夜程图、19 三选一、20 图鉴、21 结夜结算、22 夜市、23 战斗内警告</li>
+</ul>
+<p>如果第 14、24 号图里仍有人站在庭院空地读条，<strong>站位以第 25 号图为准</strong>，不要把错误站位一起抄进游戏。</p>
+<p>过程稿 01–12 不得当作成品目标。第 12 号图曾把小地图收小，导致场景变小，是反面教材。图中中文若有错字或乱码，只参考构图，游戏内必须是正确中文。</p>
+<h3>2.2 必须达到的画面品质</h3>
+<p>对照第 19 章，并在标准图之上提高一档：</p>
+<ul>
+<li><strong>风格：</strong> 方案 A 墨煞像素。夜、湿石、黑漆、朱砂、冷金点缀。成人向灵异。禁止乡土纸扎村，禁止黄土破纸脏作坊作为世界主貌，禁止页游大头像边框，禁止把精绘立绘直接铺在战场上。</li>
+<li><strong>光与材质：</strong> 地面是湿石而不是纯色带；柱、门、梁是黑漆和木，不是矩形色块；桌案、香案、拒马、灯有体积和正确比例（桌在腰到胸，门洞约 1.2–1.4 倍人身高，层高约 2.2–2.8 倍）。夜空是世界的一部分（星、远树、残段），不是纯黑边。要有祠里的灯火、湿气和香烟，但不要画成华丽宫宴。</li>
+<li><strong>空间：</strong> 仍是可平移的长战场和有进深的剖视祠堂，每层有可走的房间、可放的阻碍、可退的楼梯。左右边缘应像被镜头切开。小地图是整座祠，镜头框只是其中一段，且与当前画面一致。</li>
+<li><strong>单位工艺：</strong> 普通单位身高仍占屏高约 1/12–1/14（工程上 80 像素），不得放大来「好看」。鬼潮用数量和 2–4 排层次压人；人类上场更少，必须用更高的像素工艺压质——衣饰、兵器、灯火、发髻或面具要在远镜头下能区分晚、铁肩、朱砂等职分，不能是几个色块人。普通鬼与人等高，白衣无面可以成潮，但缢鬼、力士尸、青灯骨、大形必须能从剪影上分开，不能全是同一张白布。</li>
+<li><strong>特效：</strong> 见 1.1。金箔与符纸只出现在这些特效里。融契体进场要有能感到的重心和体量变化。</li>
+<li><strong>界面：</strong> 顶栏、指令栏、小地图、警告和各面板的层次、字号、对齐要达到并超过 14–23 号稿。正式预设里不要留下调试味的标注。</li>
+<li><strong>立绘：</strong> 高精度静帧，中式志怪灵异，祠光，博物馆式的冷。只出现在点选面板和图鉴，不进战场。现有 64 张「高规格占位」必须按这个方向收，不能长期停留在与战场脱节的概念画。青灯骨等形象若偏西式亡灵，应收到中式灯骨、纸衣、祠灯的方向，而不是西方骷髅风。</li>
+</ul>
+<h3>2.3 绝对禁止的「美化」办法</h3>
+<ul>
+<li>推近默认镜头，或把单位放大到破坏第 19.1、19.6 节。</li>
+<li>把整场塞进一个镜头，或把小地图镜头框拉满。</li>
+<li>改成 2.5D、3D 动作、手拖走位，或把人拉到外门外列阵。</li>
+<li>用换皮、滤镜或单纯提高饱和度冒充完成度。</li>
+<li>为了好看关掉鬼潮密度（常规仍要能到 40–80，高潮 80–150+）。</li>
+</ul>
+<h3>2.4 美术验收怎么交</h3>
+<p>至少提交与标准图同构图的对比图（左或上为标准图，右或下为实机，1920×1080）：</p>
+<ol>
+<li>默认镜头切片 + 小地图，对第 13 号图</li>
+<li>掩体站位（人在门内、窗后、拒马或桌案后，庭院空地无人列阵），对第 25 号图</li>
+<li>五种技能同框，对第 24 号图，并标明每一种</li>
+<li>破门灌入、缢鬼上楼各一张，远镜头，站位正确</li>
+<li>购入/部署、立绘点选、图鉴、结夜结算各一张，对 14、17、20、21 号稿</li>
+<li>书面说明：材质、单位工艺、光和特效相对标准图美化了什么；有哪一处故意不同于标准图（只允许站位按 25 号修正，或修正标准图里的错字）</li>
+</ol>
+<p>「能跑但不能代表成品质量」仍然视为未完成。色块人、空房间、常驻标注图，一律不算过。</p>
+<hr />
+<h2>3. 其他应一并修改（不挡进入，但不要拖到上架后再说）</h2>
+<ul>
+<li><strong>自册结算的「战斗累计 0.1 秒」</strong> 与战中 7:00 仍在走的截图对不上。核对计时或跳转夹具，避免给玩家错误的战斗时长。</li>
+<li><strong>夺名融契进场</strong> 的体量和重心变化偏弱，按第 16.2 / P11 要求加强，仍用远镜头。</li>
+<li><strong>高潮性能：</strong> 150 单位在报告中平均 26 帧，模拟已落后墙钟。P11 只要求先记录且暂停不卡死；P12 必须冲 1080p 稳定 60 帧。不要靠关掉特效或减密度来假过关。</li>
+<li><strong>音效：</strong> 12 类已落地，禁声有削声证据，可保留合成音作为底。锣与钟时长、响度接近，实听时可能不好分；有余力时把锣、钟、哭和点册/翻页再拉开。不要用丧尸嘶叫。</li>
+</ul>
+<hr />
+<h2>4. 本轮考核结论（供对照，不是让你重写规则）</h2>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>结论</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>K1 三条结局</td>
+<td>通过</td>
+<td>条件在 <code>data/story/endings.json</code>，三条都有结算图。路径是缩时夹具，自然到达率未验。</td>
+</tr>
+<tr>
+<td>K2 文本</td>
+<td>部分通过</td>
+<td>调性冷、阴，没有仙侠腔。失败记录泄漏种子；余文页签没有把正文露出来。</td>
+</tr>
+<tr>
+<td>K3 音频</td>
+<td>通过</td>
+<td>12 类齐，禁声把锣、钟、哭从 1.42 秒削到 0.30 秒。辨识度仍可再拉开。</td>
+</tr>
+<tr>
+<td>K4 远镜头特效</td>
+<td>部分通过</td>
+<td>预制有了，但默认尺度下不能各自认清。</td>
+</tr>
+<tr>
+<td>K5 破门与上楼</td>
+<td>通过</td>
+<td>远镜头下会发生，人留在门内。</td>
+</tr>
+<tr>
+<td>K6 例夜教学</td>
+<td>通过</td>
+<td>只教暂停、购入、掩体、点册、失败线，没有手拖走位。操作手感未实玩。</td>
+</tr>
+<tr>
+<td>K7 高潮输入</td>
+<td>部分通过</td>
+<td>暂停能恢复；150 单位 26 帧不得视为过关，转入 P12 必修。</td>
+</tr>
+<tr>
+<td>K8 报告</td>
+<td>通过</td>
+<td>路径、音效、局限和复跑入口写清楚了。</td>
+</tr>
+</tbody>
+</table>
+<p>设计锁定没有改变：一套模拟、三种坐席；玩家只做决策指令；远镜头与 80 像素身位；人依托掩体、留在外门以内；局内只有香火和名分；数字是初稿，测试时只调数字、不改规则骨架。</p>
+<hr />
+<h2>5. 完成后如何回复</h2>
+<p>按总说明的阶段报告格式，写入 <code>docs/phase-reports/</code>（建议 <code>P11-revision.md</code> 或同等文件）。逐条回答 1.1、1.2、1.3 和 2.4。附对比截图路径。仍须区分：实机运行、截图观察、源码修改。</p>
+<p>未通过本回执前，不要开始 P12 的 Windows 导出、商店页和完整上架回归，也不要宣称 G3 完成。</p>
 </section>
 
 <section class="chapter" id="d-p12">

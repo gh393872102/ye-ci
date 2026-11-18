@@ -55,6 +55,7 @@ DEV_CHAPTERS = [
     ("P9-界面全套.md", "d-p9", "P9 界面全套", "通往 G2"),
     ("P10-关卡块与科仪.md", "d-p10", "P10 关卡块与科仪（G2）", "通往 G2"),
     ("P11-叙事音频与打磨.md", "d-p11", "P11 叙事、音频与打磨", "通往 G3"),
+    ("P11-评审回执与美术硬标准.md", "d-p11-review", "P11 评审回执与美术硬标准", "通往 G3"),
     ("P12-发布与上架验收.md", "d-p12", "P12 发布与上架验收（G3）", "通往 G3"),
 ]
 
@@ -412,25 +413,26 @@ page = f"""<!DOCTYPE html>
           </div>
           <div class="card">
             <div class="tag">现在</div>
-            <h3>给 GPT-Astra 的开发规范正文已齐</h3>
+            <h3>P11 有条件进入 P12，先改完再上架</h3>
             <ul>
-              <li>P0–P12 已全部发布，覆盖 G0 到 G3 的提示词、实现范围和考核表</li>
-              <li>在线阅读：<a href="dev.html">开发规范专页</a>。交给 Astra 时从 P0 起，一阶段一阶段做</li>
-              <li>引擎锁定为 Godot 4.4 或更新的 4.x 稳定版，游戏工程将放在独立仓库</li>
+              <li>评审回执：<a href="dev.html#d-p11-review">P11 设计评审回执与美术硬标准</a></li>
+              <li>必改：远镜头五种技能可认、去掉常驻房间名；放野原因与图鉴余文可见；失败记录不再展示测试种子</li>
+              <li>美术硬标准：当前色块实机不合格。必须以第 13、24、25 号渲染图为底线，并再美化。不得推近镜头或放大单位</li>
               <li>设计锁定未改：镜头仍以第 13 号图为准，人类站位仍以第 25 号图为准</li>
             </ul>
           </div>
           <div class="card">
             <div class="tag">下一步</div>
-            <h3>把本页交给 Astra 开工</h3>
+            <h3>Astra 按回执修订后再进入 P12</h3>
             <ul>
-              <li>从 P0 工程奠基开始，不得跳阶段，关键项未通过不得宣称达到门槛</li>
-              <li>标题、暂停菜单与失败结算如需再补视觉稿，可并行，但不改已锁定设计</li>
+              <li>先交对比截图，通过本回执的验收项，再做导出、平台和商店验收</li>
+              <li>高潮 150 单位帧率转入 P12 必修，不得靠减密度假过关</li>
             </ul>
           </div>
         </div>
         <h3>更新记录</h3>
         <ul class="log">
+          <li><time>2026-11-18</time>发布 P11 设计评审回执：有条件进入 P12；补充美术硬标准，当前色块实机须达到原渲染标准图并再美化。见 <a href="dev.html#d-p11-review">评审回执</a>。</li>
           <li><time>2026-11-15</time>加厚 P8–P12：编制、界面、科仪与关卡块、结局与音效、上架回归均已拆到可执行细则。</li>
           <li><time>2026-11-15</time>加厚 P7：20 香器、16 技艺、12 名帖、融契配方和六条流派验收都拆到可执行的 id 与步骤。</li>
           <li><time>2026-11-15</time>开发规范 P0–P12 全部发布，G0 到 G3 的提示词和考核表已齐，见 <a href="dev.html">开发规范专页</a>。</li>
@@ -545,11 +547,11 @@ dev_page = f"""<!DOCTYPE html>
       <header class="hero">
         <h1>开发规范</h1>
         <p class="one-liner">给 GPT-Astra 的分阶段开发圣经：按什么顺序做、做到哪算过、每次该贴怎样的提示词。</p>
-        <p class="meta">与设计方案 v0.2 配套 · 2026-11-15 · 已发布：总说明到 P12（G0–G3 全文）</p>
+        <p class="meta">与设计方案 v0.2 配套 · 2026-11-18 · 已发布：总说明到 P12，另含 P11 评审回执与美术硬标准</p>
         <p class="meta">引擎锁定：Godot 4.4 或更新的 4.x 稳定版 · 主语言 GDScript · 游戏工程放独立仓库</p>
         <p class="topbar-links"><a href="index.html">返回设计方案</a>　·　源文件：<a href="https://github.com/gh393872102/ye-ci/tree/main/dev">github.com/gh393872102/ye-ci/dev</a></p>
       </header>
-      <div class="note">设计冲突以设计方案为准。工程顺序、提示词和阶段考核以本页为准。P0–P12 已全部发布。Astra 必须从 P0 起一阶段一阶段做，不得跳步，也不得在关键项未通过时宣称达到门槛。</div>
+      <div class="note">设计冲突以设计方案为准。工程顺序、提示词和阶段考核以本页为准。从 P11 进入 P12 前，必须先完成「P11 评审回执与美术硬标准」中的必改项和美术硬标准。Astra 从 P0 起一阶段一阶段做，不得跳步，也不得在关键项未通过时宣称达到门槛。</div>
 {dev_chapters}
     </div>
   </main>
@@ -568,6 +570,6 @@ assert "c-10" in text and "铁肩" in text and "art/01-实机-鬼潮守门.jpg" 
 assert "dev.html" in text
 assert "{{" not in text
 dtext = OUT_DEV.read_text(encoding="utf-8")
-assert "d-p0" in dtext and "工程奠基" in dtext and "G12" in dtext
+assert "d-p0" in dtext and "工程奠基" in dtext and "G12" in dtext and "d-p11-review" in dtext and "美术硬标准" in dtext
 assert "{{" not in dtext
 print("ok, images", text.count("<img "), "chapters", text.count('class="chapter"'), "dev chapters", dtext.count('class="chapter"'))
