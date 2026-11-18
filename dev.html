@@ -193,6 +193,7 @@ figure.shot figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; 
         <div class="nav-group">通往 G3</div>
         <a href="#d-p11">P11 叙事、音频与打磨</a>
         <a href="#d-p11-review">P11 评审回执与美术硬标准</a>
+        <a href="#d-p11-signoff">P11 复审签收与 P12 交接</a>
         <a href="#d-p12">P12 发布与上架验收（G3）</a>
     </nav>
   </aside>
@@ -201,11 +202,11 @@ figure.shot figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; 
       <header class="hero">
         <h1>开发规范</h1>
         <p class="one-liner">给 GPT-Astra 的分阶段开发圣经：按什么顺序做、做到哪算过、每次该贴怎样的提示词。</p>
-        <p class="meta">与设计方案 v0.2 配套 · 2026-11-18 · 已发布：总说明到 P12，另含 P11 评审回执与美术硬标准</p>
+        <p class="meta">与设计方案 v0.2 配套 · 2026-11-18 · 已发布：总说明到 P12，另含 P11 评审回执与复审签收</p>
         <p class="meta">引擎锁定：Godot 4.4 或更新的 4.x 稳定版 · 主语言 GDScript · 游戏工程放独立仓库</p>
         <p class="topbar-links"><a href="index.html">返回设计方案</a>　·　源文件：<a href="https://github.com/gh393872102/ye-ci/tree/main/dev">github.com/gh393872102/ye-ci/dev</a></p>
       </header>
-      <div class="note">设计冲突以设计方案为准。工程顺序、提示词和阶段考核以本页为准。从 P11 进入 P12 前，必须先完成「P11 评审回执与美术硬标准」中的必改项和美术硬标准。Astra 从 P0 起一阶段一阶段做，不得跳步，也不得在关键项未通过时宣称达到门槛。</div>
+      <div class="note">设计冲突以设计方案为准。工程顺序、提示词和阶段考核以本页为准。P11 三项必改与美术硬标准已签收，可以开始 P12。起点为标签 p11-courtyard-lantern-2026-11-18（f220a22）。Astra 从 P0 起一阶段一阶段做，不得跳步，也不得在关键项未通过时宣称达到门槛。</div>
 <section class="chapter" id="d-index">
 <h1>《夜祠》开发规范（交给 GPT-Astra）</h1>
 <p>本目录是给执行模型 <strong>GPT-Astra</strong> 的分阶段开发圣经，和 <a href="#d-index">GDD v0.2</a> 配套使用。设计方案规定「做成什么样的游戏」，本目录规定「按什么顺序做、做到哪算过、每次该贴怎样的提示词」。</p>
@@ -230,10 +231,11 @@ figure.shot figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; 
 <li><a href="#d-p9">P9 界面全套</a></li>
 <li><a href="#d-p10">P10 关卡块与科仪</a>（本阶段通过即为 G2）</li>
 <li><a href="#d-p11">P11 叙事、音频与打磨</a></li>
-<li><a href="#d-p11-review">P11 设计评审回执与美术硬标准</a>（2026-11-18：有条件进入 P12，先改完再上架验收）</li>
+<li><a href="#d-p11-review">P11 设计评审回执与美术硬标准</a>（2026-11-18 第一次回执，原文备查）</li>
+<li><a href="#d-p11-signoff">P11 复审签收与 P12 交接</a>（2026-11-18 晚间：可进入 P12）</li>
 <li><a href="#d-p12">P12 发布与上架验收</a>（本阶段通过即为 G3）</li>
 </ol>
-<p>开发规范正文到此写完。Astra 必须从 P0 起，一阶段一阶段做，不得跳步，也不得在关键项未通过时宣称达到了对应门槛。若正在从 P11 进入 P12，必须先完成《P11 设计评审回执与美术硬标准》中的必改项和美术硬标准，再开始 P12 的导出与上架验收。</p>
+<p>开发规范正文到此写完。Astra 必须从 P0 起，一阶段一阶段做，不得跳步，也不得在关键项未通过时宣称达到了对应门槛。P11 的三项必改与美术硬标准已在《P11 复审签收与 P12 交接》中签收，可以开始 P12。起点为 <code>ye-ci-game</code> 标签 <code>p11-courtyard-lantern-2026-11-18</code>（<code>f220a22</code>）。</p>
 <h2>四个验收门槛（与 GDD 第 21 章对齐）</h2>
 <table>
 <thead>
@@ -4704,6 +4706,9 @@ INCENSE_START_DUO = 16
 
 <section class="chapter" id="d-p11-review">
 <h1>P11 设计评审回执与美术硬标准（交给 Astra）</h1>
+<blockquote>
+<p><strong>后续签收（2026-11-18 晚间）：</strong> 标签 <code>p11-courtyard-lantern-2026-11-18</code>（<code>f220a22</code>）已通过三项必改与美术硬标准 2.4，结论改为<strong>可进入 P12</strong>。请改用 <a href="#d-p11-signoff">P11 复审签收与 P12 交接</a>。下文是第一次回执原文，保留备查。第 0 节的旧提示词不要再转发给 Astra。</p>
+</blockquote>
 <ul>
 <li>日期：2026-11-18（Asia/Shanghai）</li>
 <li>评审对象：<code>ye-ci-game</code> 标签 <code>p11-review-2026-11-18</code>（提交 <code>1865f2aca35e51ca51096441eeb2736dbdbc4d00</code>）</li>
@@ -4874,12 +4879,162 @@ P11 的结论是「有条件进入 P12」。在开始 P12 的导出、平台和�
 <h2>5. 完成后如何回复</h2>
 <p>按总说明的阶段报告格式，写入 <code>docs/phase-reports/</code>（建议 <code>P11-revision.md</code> 或同等文件）。逐条回答 1.1、1.2、1.3 和 2.4。附对比截图路径。仍须区分：实机运行、截图观察、源码修改。</p>
 <p>未通过本回执前，不要开始 P12 的 Windows 导出、商店页和完整上架回归，也不要宣称 G3 完成。</p>
+<hr />
+<p>下一篇：<a href="#d-p11-signoff">P11 复审签收与 P12 交接</a></p>
+</section>
+
+<section class="chapter" id="d-p11-signoff">
+<h1>P11 复审签收与 P12 交接（交给 Astra）</h1>
+<ul>
+<li>日期：2026-11-18 晚间（Asia/Shanghai）</li>
+<li>签收对象：<code>ye-ci-game</code> 标签 <code>p11-courtyard-lantern-2026-11-18</code>（提交 <code>f220a2297ff09f8c0579cad73df3545559196447</code>）</li>
+<li>评审身份：原设计方</li>
+<li>总判断：<strong>可进入 P12</strong>。第一次回执的三项必改（1.1、1.2、1.3）此前已通过；本轮庭院、守军轮廓与「晚」的持灯原像均已通过，美术硬标准 2.4 按这三条签收。不必再留在 P11 返工。</li>
+<li>本轮评审未实机运行 Godot。结论来自复审报告、1920×1080 原帧、对照板和源码。操作手感仍待实玩，由 P12 补验。</li>
+</ul>
+<p>在线阅读：https://gh393872102.github.io/ye-ci/dev.html#d-p11-signoff<br />
+设计方案与标准图：https://gh393872102.github.io/ye-ci/<br />
+源文件：https://github.com/gh393872102/ye-ci/blob/main/dev/P11-复审签收与P12交接.md<br />
+游戏快照：<a href="https://github.com/gh393872102/ye-ci-game/tree/p11-courtyard-lantern-2026-11-18">p11-courtyard-lantern-2026-11-18</a> · <a href="https://github.com/gh393872102/ye-ci-game/blob/f220a2297ff09f8c0579cad73df3545559196447/docs/phase-reports/P11-courtyard.md">复审报告</a></p>
+<p>对照图（左为标准图，右为本轮实机）：</p>
+<p><img alt="第 13、25、17 号标准图与 f220a22 实机对照" src="art/p11-复审签收对照-f220a22.jpg" /></p>
+<hr />
+<h2>0. 转发给 Astra 时复制这一段</h2>
+<p>先把开发规范专页发给 Astra，再贴下面整段。第一次回执第 0 节的旧提示词不要再发。</p>
+<pre><code>请实现《夜祠》开发规范的【P12 发布与上架验收】。先阅读 https://gh393872102.github.io/ye-ci/dev.html#d-p11-signoff （P11 复审签收与 P12 交接），以及同一专页中的总说明、锁定清单、工程规范、阶段总表和 P12 全文，对照 https://gh393872102.github.io/ye-ci/ 中的第 13、24、25 号标准图与第 19 章。
+
+P11 三项美术必改和美术硬标准 2.4 已由原设计方签收，可以开始 P12。请以 ye-ci-game 标签 p11-courtyard-lantern-2026-11-18（提交 f220a22）为起点。严格按 P12 提示词工作，做完按考核表逐条自检，用规定的阶段报告格式回复。不要改设计，不要跳阶段。
+
+进入 P12 时必须同时遵守：
+
+1. 按签收后的新画面重测高潮性能（40 / 80 / 150 单位）。上轮 150 单位 28.4 FPS 是 877de42 的旧值，不得沿用。禁止靠减密度或减特效刷分。暂停和指令不得卡死。
+2. 继续把默认 1920×1080 切片往第 13、25 号图靠：院墙再薄一些，铺装更接近菱形湿石，拒马在潮中也尽量可辨。禁止推近默认镜头或放大单位。人仍然只在门内防守。
+3. 「晚」必须保持第 17、20 号锁定的持灯守香人。只允许在这张原像上继续美化。未得到甲方点头，禁止换脸。
+4. 门骑等融契在远镜头下再补体量与重心。64 张静帧按第 19 章方向打磨，但不擅自改已签收的「晚」。
+5. 发行预置关闭默认看全图和调试走位；F1–F10 不得进入正式包。商店截图必须符合第 13、24、25 号图。
+
+操作手感、三条结局的自然到达率、键鼠与手柄实玩，按 P12 考核表补验。
+</code></pre>
+<p>也可以把本文全文交给 Astra。</p>
+<hr />
+<h2>1. 三次评审怎么走到这里</h2>
+<table>
+<thead>
+<tr>
+<th>轮次</th>
+<th>快照</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一次评审</td>
+<td>标签 <code>p11-review-2026-11-18</code>（<code>1865f2a</code>）</td>
+<td>有条件进入 P12。必改：远镜头特效与常驻地名、放野原因与列名余文、失败记录泄漏种子；并补上美术硬标准。</td>
+</tr>
+<tr>
+<td>第二次评审</td>
+<td>标签 <code>p11-design-revision-2026-11-18</code>（<code>877de42</code>）</td>
+<td>1.1、1.2、1.3 通过；2.4 部分通过。默认切片仍是高墙夹道，灯火轮廓偏弱，「晚」被改成持书文士。留下三条美术必改，不得开始 P12。</td>
+</tr>
+<tr>
+<td>本轮签收</td>
+<td>标签 <code>p11-courtyard-lantern-2026-11-18</code>（<code>f220a22</code>）</td>
+<td>三条美术必改通过，2.4 按这三条签收。<strong>可进入 P12。</strong></td>
+</tr>
+</tbody>
+</table>
+<p>第一次回执原文仍见 <a href="#d-p11-review">P11 设计评审回执与美术硬标准</a>，只作历史记录，不再作为当前禁令。</p>
+<hr />
+<h2>2. 本轮三项签收</h2>
+<p>本轮依据复审报告、原生 1080p 原帧和源码，未在评审机上实玩 Godot。镜头左界仍为世界 x=6080，缩放 1.0，普通身位 80 像素，主殿门仍在屏幕 x=960，房间名默认关闭。没有靠推近镜头或放大单位取巧。人只在门内合法岗位防守。</p>
+<h3>2.1 湿石庭院与拒马：通过</h3>
+<p>默认 1× 切片不再是高墙夹道。院墙压低后，鬼潮背后能看见湿石铺装和反光，四排来潮走在院面上。横移原图里，已建拒马、相邻空桩和院面更清楚。密集处拒马会被遮住，报告已写明，以整帧和横移图一并判断即可。</p>
+<p>证据：<figure class="shot"><img src="https://raw.githubusercontent.com/gh393872102/ye-ci-game/f220a2297ff09f8c0579cad73df3545559196447/docs/phase-reports/p11r2/compare-13.jpg" alt="第 13 号对照" loading="lazy"><figcaption>第 13 号对照</figcaption></figure> · <figure class="shot"><img src="https://raw.githubusercontent.com/gh393872102/ye-ci-game/f220a2297ff09f8c0579cad73df3545559196447/docs/phase-reports/p11r2/00-default-tide.png" alt="默认镜头原图" loading="lazy"><figcaption>默认镜头原图</figcaption></figure> · <figure class="shot"><img src="https://raw.githubusercontent.com/gh393872102/ye-ci-game/f220a2297ff09f8c0579cad73df3545559196447/docs/phase-reports/p11r2/02-court-scroll.png" alt="横移看外院" loading="lazy"><figcaption>横移看外院</figcaption></figure></p>
+<h3>2.2 守军轮廓与香烟：通过</h3>
+<p>案后、楼上窗后的人在远镜头下能看出头肩、手臂和衣缘，不必靠局部放大。五技能同帧里，香炉回卷烟带、门上黄符、地面点册朱圈、二层青灯和三层弩矢都可以分开认清。</p>
+<p>证据：<figure class="shot"><img src="https://raw.githubusercontent.com/gh393872102/ye-ci-game/f220a2297ff09f8c0579cad73df3545559196447/docs/phase-reports/p11r2/compare-25.jpg" alt="第 25 号对照" loading="lazy"><figcaption>第 25 号对照</figcaption></figure> · <figure class="shot"><img src="https://raw.githubusercontent.com/gh393872102/ye-ci-game/f220a2297ff09f8c0579cad73df3545559196447/docs/phase-reports/p11r2/01-k4-five-skills.png" alt="第 24 号技能原图" loading="lazy"><figcaption>第 24 号技能原图</figcaption></figure></p>
+<h3>2.3 「晚」的持灯原像：通过</h3>
+<p>人物卡和图鉴都回到了第 17、20 号锁定的持灯守香人，束发、深袍和手灯一致。交付肖像由第 17 号稿裁切重采样，底图哈希与标准稿相同。原设计方按同一裁切独立核对，只看到 JPEG 与重采样的细微误差，不是一张新脸。后边若要继续美化，必须在这张原像上做；未得到甲方点头，禁止换脸。</p>
+<p>证据：<figure class="shot"><img src="https://raw.githubusercontent.com/gh393872102/ye-ci-game/f220a2297ff09f8c0579cad73df3545559196447/docs/phase-reports/p11r2/compare-17.jpg" alt="第 17 号人物卡对照" loading="lazy"><figcaption>第 17 号人物卡对照</figcaption></figure> · <figure class="shot"><img src="https://raw.githubusercontent.com/gh393872102/ye-ci-game/f220a2297ff09f8c0579cad73df3545559196447/docs/phase-reports/p11r2/compare-20.jpg" alt="第 20 号图鉴对照" loading="lazy"><figcaption>第 20 号图鉴对照</figcaption></figure></p>
+<hr />
+<h2>3. 带到 P12 继续打磨（不挡进入）</h2>
+<p>这些不再把阶段留在 P11，但必须在上架前继续往标准图靠，禁止用推近镜头或放大单位来「好看」。</p>
+<ol>
+<li>默认切片里的院墙仍比第 13、25 号图更厚，铺装偏砖缝而不是菱形湿石；拒马在密集潮中不够跳。横移图已经能读成庭院，默认镜头还要再靠近标准图的开阔院面。</li>
+<li>门骑等融契在远镜头下的体量和重心仍偏弱，落地溅开已有，体量还可再补。</li>
+<li>「晚」目前是标准稿原裁，身份正确。若继续提高完成度，只允许美化这张持灯原像。</li>
+<li>64 张人物与鬼物静帧仍待最终签收，按第 19 章方向打磨，不要改已签收的「晚」。</li>
+<li><strong>K7 必须按新画面重测。</strong> 150 单位平均 28.4 FPS、8.01 秒墙钟只推进 7.53 秒模拟，仍是 <code>877de42</code> 的历史值。本轮加了院面和灯光后没有重跑。P12 按 1080p 性能清单实测，禁止靠减密度或减特效刷分；暂停和指令不得卡死。</li>
+<li>操作手感、三条结局的自然到达率、键鼠与手柄整夜，按 P12 考核表补验。路径夹具不能代替自然到达。</li>
+</ol>
+<p>设计锁定没有改变：一套模拟、三种坐席；玩家只做决策指令；远镜头与 80 像素身位；人依托掩体、留在外门以内；局内只有香火和名分；数字是初稿，测试时只调数字、不改规则骨架。</p>
+<hr />
+<h2>4. 本轮考核结论</h2>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>结论</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>K1 三条结局</td>
+<td>通过</td>
+<td>三条都有结算图。路径仍是夹具，自然到达率未验，转入 P12。</td>
+</tr>
+<tr>
+<td>K2 文本</td>
+<td>通过</td>
+<td>放野原因、列名余文首屏、失败记录不含测试种子，第二次评审已过，本轮未重测。</td>
+</tr>
+<tr>
+<td>K3 音频</td>
+<td>通过</td>
+<td>沿用上轮结论，本轮未重新听评。</td>
+</tr>
+<tr>
+<td>K4 远镜头特效</td>
+<td>通过</td>
+<td>五种特效在 1× 同框可认，香烟已能看见回卷烟带。</td>
+</tr>
+<tr>
+<td>K5 破门与上楼</td>
+<td>通过</td>
+<td>沿用上轮结论，人留在门内。</td>
+</tr>
+<tr>
+<td>K6 例夜教学</td>
+<td>通过</td>
+<td>指令仍是决策制。操作手感未实玩，转入 P12。</td>
+</tr>
+<tr>
+<td>K7 高潮输入</td>
+<td>部分通过</td>
+<td>暂停能恢复；新画面尚未重测，P12 必修。不得减密度或减特效刷分。</td>
+</tr>
+<tr>
+<td>K8 报告</td>
+<td>通过</td>
+<td>对照板、原帧和局限都写清楚了。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>5. 完成后如何回复</h2>
+<p>按总说明的阶段报告格式，写入 <code>docs/phase-reports/P12.md</code>。逐条回答 P12 考核表，并写明第 3 节打磨项的进展。附性能重测数据、发行截图，以及仍符合第 13、24、25 号图的默认镜头原帧。区分：亲自运行、截图观察、源码推断。</p>
+<p>未完成 P12 关键项或 G3 总表前，不可宣称可上架。</p>
+<hr />
+<p>上一篇：<a href="#d-p11-review">P11 设计评审回执与美术硬标准</a><br />
+下一篇：<a href="#d-p12">P12 发布与上架验收</a></p>
 </section>
 
 <section class="chapter" id="d-p12">
 <h1>P12. 发布与上架验收</h1>
 <p><strong>对应门槛：</strong> 本阶段通过后，即为 <strong>G3 可上架</strong>。<br />
-<strong>前置：</strong> P11 通过。这是发行前的总验收，不是再设计一款游戏。<br />
+<strong>前置：</strong> P11 通过，且 2026-11-18 晚间《P11 复审签收与 P12 交接》已签收。起点为 <code>ye-ci-game</code> 标签 <code>p11-courtyard-lantern-2026-11-18</code>（<code>f220a22</code>）。这是发行前的总验收，不是再设计一款游戏。<br />
 <strong>2026-11-15 加厚：</strong> 把导出、回归、性能、无障碍和发行材料拆成可勾选清单。</p>
 <hr />
 <h2>1. 本阶段目标</h2>
@@ -5048,7 +5203,7 @@ P11 的结论是「有条件进入 P12」。在开始 P12 的导出、平台和�
 <h2>8. 交付物</h2>
 <p>Windows 构建、设置与存档、回归报告、性能数据、发行说明与合格截图、已知问题列表、P12 报告（含 G3 总表）。这是开发规范的最后一阶段。通过后，才可以把构建交给甲方做上架准备。</p>
 <hr />
-<p>上一篇：<a href="#d-p11">P11. 叙事、音频与打磨</a><br />
+<p>上一篇：<a href="#d-p11-signoff">P11 复审签收与 P12 交接</a><br />
 下一篇：无（开发规范正文到此结束）</p>
 </section>
 
