@@ -58,6 +58,7 @@ DEV_CHAPTERS = [
     ("P11-评审回执与美术硬标准.md", "d-p11-review", "P11 评审回执与美术硬标准", "通往 G3"),
     ("P11-复审签收与P12交接.md", "d-p11-signoff", "P11 复审签收与 P12 交接", "通往 G3"),
     ("P12-发布与上架验收.md", "d-p12", "P12 发布与上架验收（G3）", "通往 G3"),
+    ("P12-候选包评审与解锁拍板.md", "d-p12-review", "P12 候选包评审与解锁拍板", "通往 G3"),
 ]
 
 FILE_TO_ID = {fn: cid for fn, cid, *_ in CHAPTERS}
@@ -414,25 +415,26 @@ page = f"""<!DOCTYPE html>
           </div>
           <div class="card">
             <div class="tag">现在</div>
-            <h3>P11 已签收，可进入 P12</h3>
+            <h3>留在 P12，G3 不通过</h3>
             <ul>
-              <li>签收：<a href="dev.html#d-p11-signoff">P11 复审签收与 P12 交接</a>（起点 <code>f220a22</code>）</li>
-              <li>湿石庭院、守军轮廓与「晚」的持灯原像已通过；美术硬标准 2.4 按这三条签收</li>
-              <li>设计锁定未改：镜头仍以第 13 号图为准，人类站位仍以第 25 号图为准，不得推近镜头或放大单位</li>
+              <li>评审：<a href="dev.html#d-p12-review">P12 候选包评审与解锁拍板</a>（本地提交 <code>ccf8626</code>）</li>
+              <li>Windows x64 候选包可交测试者签收，不可按自检宣布上架</li>
+              <li>已拍板第 20.2 节跨夜解锁；I20、F04 须移出可领或可造列表</li>
             </ul>
           </div>
           <div class="card">
             <div class="tag">下一步</div>
-            <h3>Astra 开始 P12 上架验收</h3>
+            <h3>继续 P12，先补解锁与真人签收</h3>
             <ul>
-              <li>按新画面重测 40 / 80 / 150 单位性能，禁止减密度或减特效刷分</li>
-              <li>默认切片继续往第 13、25 号图靠；「晚」不得擅自换脸</li>
-              <li>补验操作手感、三条结局自然到达率，并准备符合标准图的发行截图</li>
+              <li>按第 20.2 节收紧凶夜与无册夜入口，并把 I20 移出奖励池</li>
+              <li>Windows 键鼠手感、拔掉鼠标的实体手柄整夜，以及守香末战真人到达三条结局</li>
+              <li>画面继续往第 13、25 号图打磨，不得推近镜头或放大单位；「晚」不得换脸或重裁</li>
             </ul>
           </div>
         </div>
         <h3>更新记录</h3>
         <ul class="log">
+          <li><time>2026-11-18 夜间</time>评审 P12 Windows 候选包 <code>ccf8626</code>：留在 P12，G3 不通过；并拍板第 20.2 节。见 <a href="dev.html#d-p12-review">候选包评审与解锁拍板</a>。</li>
           <li><time>2026-11-18 晚间</time>签收 P11 复审：<code>f220a22</code> 通过三项美术必改，可进入 P12。见 <a href="dev.html#d-p11-signoff">复审签收与 P12 交接</a>。</li>
           <li><time>2026-11-18</time>发布 P11 设计评审回执：当时为有条件进入 P12；补充美术硬标准。见 <a href="dev.html#d-p11-review">第一次回执</a>。</li>
           <li><time>2026-11-15</time>加厚 P8–P12：编制、界面、科仪与关卡块、结局与音效、上架回归均已拆到可执行细则。</li>
@@ -549,11 +551,11 @@ dev_page = f"""<!DOCTYPE html>
       <header class="hero">
         <h1>开发规范</h1>
         <p class="one-liner">给 GPT-Astra 的分阶段开发圣经：按什么顺序做、做到哪算过、每次该贴怎样的提示词。</p>
-        <p class="meta">与设计方案 v0.2 配套 · 2026-11-18 · 已发布：总说明到 P12，另含 P11 评审回执与复审签收</p>
+        <p class="meta">与设计方案 v0.2 配套 · 2026-11-18 · 已发布：总说明到 P12，另含 P11 评审回执、复审签收与 P12 候选包评审</p>
         <p class="meta">引擎锁定：Godot 4.4 或更新的 4.x 稳定版 · 主语言 GDScript · 游戏工程放独立仓库</p>
         <p class="topbar-links"><a href="index.html">返回设计方案</a>　·　源文件：<a href="https://github.com/gh393872102/ye-ci/tree/main/dev">github.com/gh393872102/ye-ci/dev</a></p>
       </header>
-      <div class="note">设计冲突以设计方案为准。工程顺序、提示词和阶段考核以本页为准。P11 三项必改与美术硬标准已签收，可以开始 P12。起点为标签 p11-courtyard-lantern-2026-11-18（f220a22）。Astra 从 P0 起一阶段一阶段做，不得跳步，也不得在关键项未通过时宣称达到门槛。</div>
+      <div class="note">设计冲突以设计方案为准。工程顺序、提示词和阶段考核以本页为准。P12 Windows 候选包已评，结论为留在 P12，G3 不通过。跨夜解锁以第 20.2 节拍板为准。继续基于本地提交 ccf8626，其父提交为标签 p11-courtyard-lantern-2026-11-18（f220a22）。Astra 从 P0 起一阶段一阶段做，不得跳步，也不得在关键项未通过时宣称达到门槛。</div>
 {dev_chapters}
     </div>
   </main>
@@ -568,10 +570,10 @@ OUT_DEV.write_text(dev_page, encoding="utf-8")
 print("wrote", OUT, "bytes", OUT.stat().st_size)
 print("wrote", OUT_DEV, "bytes", OUT_DEV.stat().st_size)
 text = OUT.read_text(encoding="utf-8")
-assert "c-10" in text and "铁肩" in text and "art/01-实机-鬼潮守门.jpg" in text
+assert "c-10" in text and "铁肩" in text and "art/01-实机-鬼潮守门.jpg" in text and "R06 祭桥" in text and "旧存档不回收" in text
 assert "dev.html" in text
 assert "{{" not in text
 dtext = OUT_DEV.read_text(encoding="utf-8")
-assert "d-p0" in dtext and "工程奠基" in dtext and "G12" in dtext and "d-p11-review" in dtext and "美术硬标准" in dtext and "d-p11-signoff" in dtext and "可进入 P12" in dtext
+assert "d-p0" in dtext and "工程奠基" in dtext and "G12" in dtext and "d-p11-review" in dtext and "美术硬标准" in dtext and "d-p11-signoff" in dtext and "可进入 P12" in dtext and "d-p12-review" in dtext and "G3 不通过" in dtext and "20.2" in dtext
 assert "{{" not in dtext
 print("ok, images", text.count("<img "), "chapters", text.count('class="chapter"'), "dev chapters", dtext.count('class="chapter"'))
