@@ -18,6 +18,7 @@
 | [tie-jian-portrait-3x4.png](tie-jian-portrait-3x4.png) | 写入铁肩的点击面板 / 图鉴立绘，不要铺到战场，也不要改官方 17 号图 | 1620×2160，RGB，3:4 竖版 | 已定稿 |
 | [zhu-sha-portrait-3x4.png](zhu-sha-portrait-3x4.png) | 写入朱砂的点击面板 / 图鉴立绘，不要铺到战场，也不要改官方 17 号图 | 1620×2160，RGB，3:4 竖版 | 已定稿 |
 | [mian-jiang-portrait-3x4.png](mian-jiang-portrait-3x4.png) | 写入面匠的点击面板 / 图鉴立绘，不要铺到战场，也不要改官方 17 号图 | 1620×2160，RGB，3:4 竖版 | 已定稿 |
+| [shen-ce-portrait-3x4.png](shen-ce-portrait-3x4.png) | 写入沈册的点击面板 / 图鉴立绘，不要铺到战场，也不要改官方 17 号图 | 1620×2160，RGB，3:4 竖版 | 已定稿 |
 | [menqi-three-poses-master.png](menqi-three-poses-master.png) | 母稿，不直接进包 | 高清透明三姿势 | 已定稿 |
 | [xuanxian-three-poses-master.png](xuanxian-three-poses-master.png) | 母稿，不直接进包 | 高清透明三姿势 | 已定稿 |
 | [shuangmian-three-poses-master.png](shuangmian-three-poses-master.png) | 母稿，不直接进包 | 高清透明三姿势 | 已定稿 |
@@ -31,3 +32,4 @@
 | [tie-jian-portrait-master.png](tie-jian-portrait-master.png) | 母稿，不直接进包 | 3840×2160 横版原图 | 已定稿 |
 | [zhu-sha-portrait-master.png](zhu-sha-portrait-master.png) | 母稿，不直接进包 | 3840×2160 横版原图 | 已定稿 |
 | [mian-jiang-portrait-master.png](mian-jiang-portrait-master.png) | 母稿，不直接进包 | 3840×2160 横版原图 | 已定稿 |
+| [shen-ce-portrait-master.png](shen-ce-portrait-master.png) | 母稿，不直接进包 | 3840×2160 横版原图 | 已定稿 |
