@@ -13,6 +13,7 @@
 | [lishishi-144x252.png](lishishi-144x252.png) | 写入力士尸的站/走/击三格，不要整张覆盖混排的单位表 | 144×252，RGBA，一列三行，每格 144×84 | 已定稿 |
 | [qingdenggu-144x252.png](qingdenggu-144x252.png) | 写入青灯骨的站/走/探三格，不要整张覆盖混排的单位表 | 144×252，RGBA，一列三行，每格 144×84 | 已定稿 |
 | [yigui-144x252.png](yigui-144x252.png) | 写入缢鬼的站/走/探三格，不要整张覆盖混排的单位表 | 144×252，RGBA，一列三行，每格 144×84 | 已定稿 |
+| [yingbu-144x252.png](yingbu-144x252.png) | 写入影步的站/走/窜三格，不要整张覆盖混排的单位表 | 144×252，RGBA，一列三行，每格 144×84 | 已定稿 |
 | [menqi-three-poses-master.png](menqi-three-poses-master.png) | 母稿，不直接进包 | 高清透明三姿势 | 已定稿 |
 | [xuanxian-three-poses-master.png](xuanxian-three-poses-master.png) | 母稿，不直接进包 | 高清透明三姿势 | 已定稿 |
 | [shuangmian-three-poses-master.png](shuangmian-three-poses-master.png) | 母稿，不直接进包 | 高清透明三姿势 | 已定稿 |
@@ -21,3 +22,4 @@
 | [lishishi-three-poses-master.png](lishishi-three-poses-master.png) | 母稿，不直接进包 | 高清透明三姿势 | 已定稿 |
 | [qingdenggu-three-poses-master.png](qingdenggu-three-poses-master.png) | 母稿，不直接进包 | 高清透明三姿势 | 已定稿 |
 | [yigui-three-poses-master.png](yigui-three-poses-master.png) | 母稿，不直接进包 | 高清透明三姿势 | 已定稿 |
+| [yingbu-three-poses-master.png](yingbu-three-poses-master.png) | 母稿，不直接进包 | 高清透明三姿势 | 已定稿 |
