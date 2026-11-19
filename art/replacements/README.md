@@ -28,6 +28,7 @@
 | [zhu-xi-portrait-3x4.png](zhu-xi-portrait-3x4.png) | 写入祝禧的点击面板 / 图鉴立绘，不要铺到战场，也不要改官方 17 号图 | 1620×2160，RGB，3:4 竖版 | 已定稿 |
 | [leng-jin-portrait-3x4.png](leng-jin-portrait-3x4.png) | 写入冷金的点击面板 / 图鉴立绘，不要铺到战场，也不要改官方 17 号图 | 1620×2160，RGB，3:4 竖版 | 已定稿 |
 | [si-ya-portrait-3x4.png](si-ya-portrait-3x4.png) | 写入饲鸦的点击面板 / 图鉴立绘，不要铺到战场，也不要改官方 17 号图 | 1620×2160，RGB，3:4 竖版 | 已定稿 |
+| [tong-luo-portrait-3x4.png](tong-luo-portrait-3x4.png) | 写入铜锣的点击面板 / 图鉴立绘，不要铺到战场，也不要改官方 17 号图 | 1620×2160，RGB，3:4 竖版 | 已定稿 |
 | [menqi-three-poses-master.png](menqi-three-poses-master.png) | 母稿，不直接进包 | 高清透明三姿势 | 已定稿 |
 | [xuanxian-three-poses-master.png](xuanxian-three-poses-master.png) | 母稿，不直接进包 | 高清透明三姿势 | 已定稿 |
 | [shuangmian-three-poses-master.png](shuangmian-three-poses-master.png) | 母稿，不直接进包 | 高清透明三姿势 | 已定稿 |
@@ -54,3 +55,4 @@
 | [zhu-xi-portrait-master.png](zhu-xi-portrait-master.png) | 母稿，不直接进包 | 3840×2160 横版原图 | 已定稿 |
 | [leng-jin-portrait-master.png](leng-jin-portrait-master.png) | 母稿，不直接进包 | 3840×2160 横版原图 | 已定稿 |
 | [si-ya-portrait-master.png](si-ya-portrait-master.png) | 母稿，不直接进包 | 3840×2160 横版原图 | 已定稿 |
+| [tong-luo-portrait-master.png](tong-luo-portrait-master.png) | 母稿，不直接进包 | 3840×2160 横版原图 | 已定稿 |
