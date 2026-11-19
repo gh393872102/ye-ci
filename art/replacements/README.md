@@ -41,3 +41,4 @@
 | [xuan-xian-portrait-master.png](xuan-xian-portrait-master.png) | 母稿，不直接进包 | 3840×2160 横版原图 | 已定稿 |
 | [shuang-mian-deng-portrait-master.png](shuang-mian-deng-portrait-master.png) | 母稿，不直接进包 | 3840×2160 横版原图 | 已定稿 |
 | [men-qi-portrait-master.png](men-qi-portrait-master.png) | 母稿，不直接进包 | 3840×2160 横版原图 | 已定稿 |
+| [jie-ye-illustration-master.png](jie-ye-illustration-master.png) | 结夜关键插画，16:9 场景静帧，只收横版母稿，不要裁 3:4，不要替换官方 21 号结夜结算图，也不要铺到战场 | 3840×2160，RGB | 已定稿 |
