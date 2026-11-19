@@ -24,6 +24,7 @@
 | [shuang-mian-deng-portrait-3x4.png](shuang-mian-deng-portrait-3x4.png) | 写入双面灯的点击面板 / 图鉴立绘，不要铺到战场，也不要改官方 17 号图 | 1620×2160，RGB，3:4 竖版 | 已定稿 |
 | [men-qi-portrait-3x4.png](men-qi-portrait-3x4.png) | 写入门骑的点击面板 / 图鉴立绘，不要铺到战场，也不要改官方 17 号图 | 1620×2160，RGB，3:4 竖版 | 已定稿 |
 | [shuang-zhan-portrait-3x4.png](shuang-zhan-portrait-3x4.png) | 写入霜盏的点击面板 / 图鉴立绘，不要铺到战场，也不要改官方 17 号图 | 1620×2160，RGB，3:4 竖版 | 已定稿 |
+| [qing-jian-portrait-3x4.png](qing-jian-portrait-3x4.png) | 写入青笺的点击面板 / 图鉴立绘，不要铺到战场，也不要改官方 17 号图 | 1620×2160，RGB，3:4 竖版 | 已定稿 |
 | [menqi-three-poses-master.png](menqi-three-poses-master.png) | 母稿，不直接进包 | 高清透明三姿势 | 已定稿 |
 | [xuanxian-three-poses-master.png](xuanxian-three-poses-master.png) | 母稿，不直接进包 | 高清透明三姿势 | 已定稿 |
 | [shuangmian-three-poses-master.png](shuangmian-three-poses-master.png) | 母稿，不直接进包 | 高清透明三姿势 | 已定稿 |
@@ -46,3 +47,4 @@
 | [duo-ming-illustration-master.png](duo-ming-illustration-master.png) | 夺名关键插画，16:9 场景静帧，只收横版母稿，不要裁 3:4，不要替换官方标准图，也不要铺到战场 | 3840×2160，RGB | 已定稿 |
 | [kai-mian-illustration-master.png](kai-mian-illustration-master.png) | 开面关键插画，16:9 场景静帧，只收横版母稿，不要裁 3:4，不要替换官方标准图，也不要铺到战场 | 3840×2160，RGB | 已定稿 |
 | [shuang-zhan-portrait-master.png](shuang-zhan-portrait-master.png) | 母稿，不直接进包 | 3840×2160 横版原图 | 已定稿 |
+| [qing-jian-portrait-master.png](qing-jian-portrait-master.png) | 母稿，不直接进包 | 3840×2160 横版原图 | 已定稿 |
