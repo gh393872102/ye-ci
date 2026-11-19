@@ -7,6 +7,7 @@
 | 文件 | 游戏内路径 | 尺寸 | 状态 |
 | --- | --- | --- | --- |
 | [courtyard-stones-2172x724.png](courtyard-stones-2172x724.png) | `assets/sprites/world/inkshrine/courtyard-stones.png` | 2172×724，RGB，无透明 | 已定稿 |
-| [fusion_poses.png](fusion_poses.png) | `assets/sprites/units/p11r/fusion_poses.png` | 432×252，RGBA，3×3 网格，每格 144×84 | 已定稿（左列悬线、中列门骑已换；右列双面灯仍为原表） |
+| [fusion_poses.png](fusion_poses.png) | `assets/sprites/units/p11r/fusion_poses.png` | 432×252，RGBA，3×3 网格，每格 144×84 | 已定稿（左悬线、中门骑、右双面灯均已换） |
 | [menqi-three-poses-master.png](menqi-three-poses-master.png) | 母稿，不直接进包 | 高清透明三姿势 | 已定稿 |
 | [xuanxian-three-poses-master.png](xuanxian-three-poses-master.png) | 母稿，不直接进包 | 高清透明三姿势 | 已定稿 |
+| [shuangmian-three-poses-master.png](shuangmian-three-poses-master.png) | 母稿，不直接进包 | 高清透明三姿势 | 已定稿 |
